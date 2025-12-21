@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { greet } from "@types/index";
+import { useState } from "react";
+import { greet } from "./api/tauri";
 
 function App() {
   const [greeting, setGreeting] = useState<string>("");

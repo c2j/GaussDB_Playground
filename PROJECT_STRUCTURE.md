@@ -26,14 +26,15 @@ template/
 │   ├── index.tsx               # React entry point
 │   ├── index.css               # Global styles with Tailwind directives
 │   │
-│   ├── api/                    # API layer (for future use)
+│   ├── api/                    # API layer for Tauri commands
+│   │   └── tauri.ts           # Tauri API functions (greet, etc.)
 │   ├── assets/                 # Static assets (images, fonts, etc.)
 │   ├── components/             # Reusable React components
 │   ├── hooks/                  # Custom React hooks
 │   ├── store/                  # State management (Zustand, Redux, etc.)
 │   ├── types/                  # TypeScript type definitions
 │   │   ├── env.d.ts           # Vite environment types
-│   │   └── index.ts           # Common types and Tauri API imports
+│   │   └── index.ts           # Common type definitions
 │   └── utils/                  # Utility functions
 │
 └── src-tauri/                  # Backend source code (Rust + Tauri)
@@ -104,7 +105,7 @@ fn greet(name: &str) -> String {
 ```
 
 ```typescript
-// frontend/types/index.ts
+// frontend/api/tauri.ts
 import { invoke } from "@tauri-apps/api/tauri";
 
 export async function greet(name: string): Promise<string> {

@@ -141,11 +141,23 @@ fn main() {
 
 3. Use the command in your React app:
 
+Create a new file `frontend/api/tauri.ts`:
+
 ```typescript
 import { invoke } from "@tauri-apps/api/tauri";
 
+export async function myCommand(value: string): Promise<string> {
+  return await invoke("my_command", { value });
+}
+```
+
+Then import and use it in your component:
+
+```typescript
+import { myCommand } from "./api/tauri";
+
 async function handleClick() {
-  const result = await invoke("my_command", { value: "Hello from React!" });
+  const result = await myCommand("Hello from React!");
   console.log(result);
 }
 ```
