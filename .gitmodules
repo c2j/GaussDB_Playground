@@ -1,0 +1,3 @@
+[submodule "courses/opengauss"]
+	path = courses/opengauss
+	url = https://gitcode.com/opengauss/playground-course.git

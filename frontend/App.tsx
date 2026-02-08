@@ -1,74 +1,65 @@
-import { useState } from "react";
-import { greet } from "./api/tauri";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Sidebar } from "./components/Sidebar";
+import { CourseViewer } from "./components/CourseViewer";
+import { Playground } from "./components/Playground";
+import { useAppStore } from "./store/app.store";
+
+// 检测 Tauri 环境
+const isTauri = !!(window as any).__TAURI__;
+console.log("[App] Running in Tauri environment:", isTauri);
+console.log("[App] window.__TAURI__:", (window as any).__TAURI__);
+
+// 创建 React Query 客户端
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: 1,
+      staleTime: 5 * 60 * 1000, // 5 minutes
+    },
+  },
+});
 
 function App() {
-  const [greeting, setGreeting] = useState<string>("");
-
-  const handleGreet = async () => {
-    try {
-      const result = await greet("World");
-      setGreeting(result);
-    } catch (error) {
-      console.error("Error calling greet command:", error);
-      setGreeting("Error calling greet command");
-    }
-  };
+  const { currentTab } = useAppStore();
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-8">
-      <div className="bg-white rounded-lg shadow-lg p-8 max-w-2xl w-full">
-        <h1 className="text-4xl font-bold text-gray-800 mb-6 text-center">
-          Tauri + React + TypeScript
-        </h1>
+    <QueryClientProvider client={queryClient}>
+      <div className="flex h-screen bg-slate-50 dark:bg-slate-900">
+        <Sidebar />
 
-        <p className="text-gray-600 text-center mb-8">
-          A starter template for building desktop applications
-        </p>
+        {/* 主内容区 */}
+        <div className="flex-1 flex flex-col overflow-hidden">
+          {/* 标签页导航 */}
+          <div className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
+            <button
+              onClick={() => useAppStore.getState().setCurrentTab("learn")}
+              className={`px-6 py-3 font-medium transition-colors ${
+                currentTab === "learn"
+                  ? "text-primary-600 border-b-2 border-primary-600"
+                  : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
+              }`}
+            >
+              课程学习
+            </button>
+            <button
+              onClick={() => useAppStore.getState().setCurrentTab("playground")}
+              className={`px-6 py-3 font-medium transition-colors ${
+                currentTab === "playground"
+                  ? "text-primary-600 border-b-2 border-primary-600"
+                  : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
+              }`}
+            >
+              试验场
+            </button>
+          </div>
 
-        <div className="flex flex-col items-center gap-4">
-          <button
-            onClick={handleGreet}
-            className="bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"
-          >
-            Greet from Rust
-          </button>
-
-          {greeting && (
-            <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
-              <p className="text-green-800 font-medium">{greeting}</p>
-            </div>
-          )}
-        </div>
-
-        <div className="mt-8 pt-8 border-t border-gray-200">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-            Features
-          </h2>
-          <ul className="space-y-2 text-gray-600">
-            <li className="flex items-center">
-              <span className="w-2 h-2 bg-primary-500 rounded-full mr-3"></span>
-              Tauri for native desktop app development
-            </li>
-            <li className="flex items-center">
-              <span className="w-2 h-2 bg-primary-500 rounded-full mr-3"></span>
-              React for building user interfaces
-            </li>
-            <li className="flex items-center">
-              <span className="w-2 h-2 bg-primary-500 rounded-full mr-3"></span>
-              TypeScript for type safety
-            </li>
-            <li className="flex items-center">
-              <span className="w-2 h-2 bg-primary-500 rounded-full mr-3"></span>
-              Vite for fast development
-            </li>
-            <li className="flex items-center">
-              <span className="w-2 h-2 bg-primary-500 rounded-full mr-3"></span>
-              TailwindCSS for styling
-            </li>
-          </ul>
+          {/* 标签页内容 */}
+          {currentTab === "learn" && <CourseViewer />}
+          {currentTab === "playground" && <Playground />}
         </div>
       </div>
-    </div>
+    </QueryClientProvider>
   );
 }
 

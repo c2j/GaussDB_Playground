@@ -1,13 +1,7 @@
-// Learn more about Tauri commands at https://tauri.app/v1/guides/features/commands
+// Tauri commands for openGauss Playground
+mod database;
+mod courses;
 
-#[tauri::command]
-fn greet(name: &str) -> String {
-    format!("Hello, {name}! You've been greeted from Rust!")
-}
+use database::{DbConfig, ConnectionStatus, QueryResult, TableInfo, DatabaseManager};
 
-#[cfg_attr(
-    all(not(debug_assertions), target_os = "windows"),
-    windows_subsystem = "windows"
-)]
-
-pub type Result<T> = std::result::Result<T, anyhow::Error>;
+pub type Result<T> = std::result::Result<T, String>;
