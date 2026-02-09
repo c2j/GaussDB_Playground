@@ -1,0 +1,25 @@
+{
+  "title": "相关管理工具与生产案例剖析",
+  "description": "介绍工具链和真实企业案例，规范讲解与综合应用。",
+  "details": {
+    "steps": [
+      {
+        "title": "Step 1 - MogDB管理工具",
+        "md_file": "step1.md"
+      },
+      {
+        "title": "Step 2 - 企业案例与规范讲解",
+        "md_file": "step2.md"
+      }
+    ],
+    "introduction": {
+      "md_file": "intro.md"
+    },
+    "finish": {
+      "md_file": "finish.md"
+    }
+  },
+  "backend": {
+    "image_id": "opengauss-3.0.0"
+  }
+}

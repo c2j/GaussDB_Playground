@@ -1,0 +1,51 @@
+{
+  "title": "MGCP Intermediate: openGauss中级认证培训",
+  "description": "基于openGauss的MogDB中级认证课程，针对企业中级DBA、架构设计师和优化者。使用金融银行高可用场景模拟业务，帮助学员深入掌握架构分析、维护优化、安全管理和高可用等技能。结合理论讲解、实践任务和企业案例剖析，实现从理论到生产的闭环。",
+  "logo": "./assets/logo.png",
+  "poster": "./assets/poster.png",
+  "cover": "./assets/cover.png",
+  "container_live_time": "180",
+  "chapters": [
+    {
+      "content_dir": "ecosystem-and-architecture",
+      "title": "MogDB生态发展与架构深入分析",
+      "description": "介绍MogDB生态和openGauss架构细节，在金融场景中分析设计决策。",
+      "estimated_time": "25 min"
+    },
+    {
+      "content_dir": "maintenance-and-data-management",
+      "title": "深入维护与数据管理",
+      "description": "讲解运维工具和数据操作最佳实践，包括企业级数据导入导出。",
+      "estimated_time": "30 min"
+    },
+    {
+      "content_dir": "features-and-security",
+      "title": "功能特性与安全管理",
+      "description": "探索高级功能和安全策略，如权限控制和数据加密。",
+      "estimated_time": "30 min"
+    },
+    {
+      "content_dir": "performance-and-advanced-sql",
+      "title": "性能优化与高级SQL",
+      "description": "深入性能诊断和高级SQL编写，结合慢查询案例剖析。",
+      "estimated_time": "35 min"
+    },
+    {
+      "content_dir": "backup-recovery-and-ha",
+      "title": "备份恢复与高可用技术",
+      "description": "掌握备份策略和高可用架构，在模拟故障场景中实践。",
+      "estimated_time": "35 min"
+    },
+    {
+      "content_dir": "management-tools-and-case",
+      "title": "相关管理工具与生产案例剖析",
+      "description": "介绍工具链和真实企业案例，规范讲解与综合应用。",
+      "estimated_time": "25 min"
+    }
+  ],
+  "exam": {
+    "type": "mixed",
+    "duration": "90",
+    "pass_score": "85"
+  }
+}

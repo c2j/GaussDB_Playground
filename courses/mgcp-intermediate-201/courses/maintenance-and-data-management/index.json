@@ -1,0 +1,25 @@
+{
+  "title": "深入维护与数据管理",
+  "description": "讲解运维工具和数据操作最佳实践，包括企业级数据导入导出。",
+  "details": {
+    "steps": [
+      {
+        "title": "Step 1 - 日常维护与监控",
+        "md_file": "step1.md"
+      },
+      {
+        "title": "Step 2 - 数据导入导出",
+        "md_file": "step2.md"
+      }
+    ],
+    "introduction": {
+      "md_file": "intro.md"
+    },
+    "finish": {
+      "md_file": "finish.md"
+    }
+  },
+  "backend": {
+    "image_id": "opengauss-3.0.0"
+  }
+}

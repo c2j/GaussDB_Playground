@@ -1,0 +1,25 @@
+{
+  "title": "功能特性与安全管理",
+  "description": "探索高级功能和安全策略，如权限控制和数据加密。",
+  "details": {
+    "steps": [
+      {
+        "title": "Step 1 - 高级功能特性",
+        "md_file": "step1.md"
+      },
+      {
+        "title": "Step 2 - 安全管理与权限控制",
+        "md_file": "step2.md"
+      }
+    ],
+    "introduction": {
+      "md_file": "intro.md"
+    },
+    "finish": {
+      "md_file": "finish.md"
+    }
+  },
+  "backend": {
+    "image_id": "opengauss-3.0.0"
+  }
+}

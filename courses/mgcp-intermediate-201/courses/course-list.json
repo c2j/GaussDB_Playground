@@ -1,0 +1,9 @@
+{
+  "courses": [
+    {
+      "id": "mgcp-intermediate-201",
+      "content_dir": ".",
+      "status": ["online", "test"]
+    }
+  ]
+}

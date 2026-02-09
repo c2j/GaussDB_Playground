@@ -1,0 +1,25 @@
+{
+  "title": "性能优化与高级SQL",
+  "description": "深入性能诊断和高级SQL编写，结合慢查询案例剖析。",
+  "details": {
+    "steps": [
+      {
+        "title": "Step 1 - 性能诊断与EXPLAIN ANALYZE",
+        "md_file": "step1.md"
+      },
+      {
+        "title": "Step 2 - 慢查询分析与优化",
+        "md_file": "step2.md"
+      }
+    ],
+    "introduction": {
+      "md_file": "intro.md"
+    },
+    "finish": {
+      "md_file": "finish.md"
+    }
+  },
+  "backend": {
+    "image_id": "opengauss-3.0.0"
+  }
+}

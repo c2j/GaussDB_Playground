@@ -1,0 +1,25 @@
+{
+  "title": "MogDB生态发展与架构深入分析",
+  "description": "学习MogDB生态演进、openGauss架构原理，以及在企业金融场景下的应用。",
+  "details": {
+    "steps": [
+      {
+        "title": "Step 1 - MogDB生态概述",
+        "md_file": "step1.md"
+      },
+      {
+        "title": "Step 2 - 架构深入分析",
+        "md_file": "step2.md"
+      }
+    ],
+    "introduction": {
+      "md_file": "intro.md"
+    },
+    "finish": {
+      "md_file": "finish.md"
+    }
+  },
+  "backend": {
+    "image_id": "opengauss-3.0.0"
+  }
+}

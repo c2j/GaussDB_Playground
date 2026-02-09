@@ -1,0 +1,129 @@
+{
+  "pen_test": [
+    {
+      "id": "1",
+      "question": "MogDB架构中，GTM的主要作用是什么？",
+      "type": "single_choice",
+      "options": [
+        "A. 数据存储",
+        "B. 全局事务管理",
+        "C. 查询优化",
+        "D. 日志归档"
+      ],
+      "answer": "B",
+      "explanation": "GTM（Global Transaction Manager）负责分配全局事务ID、协调分布式事务提交、保证事务ACID特性。"
+    },
+    {
+      "id": "2",
+      "question": "以下哪些是openGauss的高级功能？（多选）",
+      "type": "multiple_choice",
+      "options": [
+        "A. 全文检索",
+        "B. 行级访问控制（RLS）",
+        "C. 数据脱敏",
+        "D. 向量搜索"
+      ],
+      "answer": ["A", "B", "C"],
+      "explanation": "openGauss支持全文检索、行级访问控制、数据脱敏等高级功能。向量搜索需要特定扩展。"
+    },
+    {
+      "id": "3",
+      "question": "gs_basebackup和gs_dump的主要区别是什么？",
+      "type": "single_choice",
+      "options": [
+        "A. gs_basebackup更快",
+        "B. gs_dump支持跨版本迁移",
+        "C. 两者完全相同",
+        "D. gs_dump是物理备份"
+      ],
+      "answer": "B",
+      "explanation": "gs_basebackup是物理备份，速度快但版本兼容性差。gs_dump是逻辑备份，支持跨版本迁移但速度较慢。"
+    },
+    {
+      "id": "4",
+      "question": "在银行场景中，两地三中心架构的RPO和RTO要求是什么？",
+      "type": "single_choice",
+      "options": [
+        "A. RPO=0, RTO<5min",
+        "B. RPO<1min, RTO<10min",
+        "C. RPO=0, RTO<1min（本地切换）",
+        "D. RPO<10min, RTO<30min"
+      ],
+      "answer": "C",
+      "explanation": "银行核心系统要求RPO=0（零数据丢失），本地故障切换RTO<1分钟，异地灾备RTO<5分钟。"
+    },
+    {
+      "id": "5",
+      "question": "描述银行数据迁移中双写方案的实现原理和优点。",
+      "type": "analysis",
+      "options": [],
+      "answer": "双写方案在迁移期间同时向旧系统和新系统（openGauss）写入数据，确保两个系统数据一致。优点：零停机时间、可以随时回滚、迁移过程对业务无影响。缺点：需要额外的开发工作、需要实时校验数据一致性。",
+      "explanation": "双写方案通过同时写入新旧系统实现零停机迁移，但需要做好数据一致性校验和异常处理机制。"
+    }
+  ],
+  "practice": [
+    {
+      "id": "1",
+      "task": "优化慢查询并设计高可用方案",
+      "description": "给定银行交易表，分析慢查询原因，设计索引优化方案，并设计符合RPO=0、RTO<1min的高可用架构方案。",
+      "scoring": {
+        "correctness": 35,
+        "performance": 35,
+        "norm": 20,
+        "plan": 10
+      },
+      "checklist": [
+        "使用EXPLAIN ANALYZE分析执行计划",
+        "识别性能瓶颈（全表扫描、Nested Loop等）",
+        "设计合适的索引",
+        "验证优化效果（查询时间显著降低）",
+        "高可用架构设计合理（主备配置、同步策略）",
+        "RPO/RTO指标满足要求",
+        "考虑金融合规性（数据一致性、审计）",
+        "方案文档清晰完整"
+      ]
+    },
+    {
+      "id": "2",
+      "task": "实施数据迁移和验证方案",
+      "description": "设计并实施从遗留数据库到openGauss的数据迁移方案，包括数据导出、转换、导入和验证流程。需处理10TB数据，迁移时间窗口12小时。",
+      "scoring": {
+        "correctness": 35,
+        "performance": 35,
+        "norm": 20,
+        "plan": 10
+      },
+      "checklist": [
+        "使用gs_dump正确导出数据",
+        "设计数据转换逻辑（格式、编码、类型映射）",
+        "使用gs_restore并行导入",
+        "迁移时间控制在12小时内",
+        "数据完整性验证（数量、抽样对比）",
+        "异常处理和回滚方案",
+        "迁移过程监控和日志记录",
+        "符合银行数据迁移规范"
+      ]
+    },
+    {
+      "id": "3",
+      "task": "配置数据库安全策略",
+      "description": "为银行交易系统配置安全策略，包括角色权限、行级访问控制、数据加密，确保满足《个人信息保护法》和金融行业安全规范要求。",
+      "scoring": {
+        "correctness": 40,
+        "performance": 20,
+        "norm": 30,
+        "plan": 10
+      },
+      "checklist": [
+        "创建合理的角色体系（admin、reader、operator）",
+        "配置最小权限原则",
+        "实施行级访问控制（RLS）",
+        "敏感字段数据加密",
+        "配置审计日志",
+        "权限测试验证",
+        "符合金融合规要求",
+        "安全策略文档完整"
+      ]
+    }
+  ]
+}
