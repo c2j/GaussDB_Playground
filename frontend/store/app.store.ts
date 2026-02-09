@@ -7,6 +7,9 @@ export interface AppState {
   selectedChapterId: string | null;
   selectedStepId: string | null;
 
+  // 当前选择的专业
+  selectedMajorId: string | null;
+
   // 当前标签页
   currentTab: "learn" | "playground";
 
@@ -20,6 +23,7 @@ export interface AppState {
   setSelectedCourse: (courseId: string | null) => void;
   setSelectedChapter: (chapterId: string | null) => void;
   setSelectedStep: (stepId: string | null) => void;
+  setSelectedMajor: (majorId: string | null) => void;
   setCurrentTab: (tab: "learn" | "playground") => void;
   toggleSidebar: () => void;
   resetSelection: () => void;
@@ -31,6 +35,7 @@ export const useAppStore = create<AppState>((set) => ({
   selectedCourseId: null,
   selectedChapterId: null,
   selectedStepId: null,
+  selectedMajorId: null,
   currentTab: "learn",
   sidebarCollapsed: false,
   dbConnected: false,
@@ -39,6 +44,7 @@ export const useAppStore = create<AppState>((set) => ({
   setSelectedCourse: (courseId) => set({ selectedCourseId: courseId }),
   setSelectedChapter: (chapterId) => set({ selectedChapterId: chapterId }),
   setSelectedStep: (stepId) => set({ selectedStepId: stepId }),
+  setSelectedMajor: (majorId) => set({ selectedMajorId: majorId }),
   setCurrentTab: (tab) => set({ currentTab: tab }),
   toggleSidebar: () => set((state) => ({ sidebarCollapsed: !state.sidebarCollapsed })),
   setDbConnected: (connected) => set({ dbConnected: connected }),

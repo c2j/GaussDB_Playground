@@ -4,6 +4,7 @@ import type {
   CourseDetail,
   ChapterDetail,
   StepContent,
+  MajorInfo,
 } from "../../interfaces/course.service";
 
 export class MockCourseService implements ICourseService {
@@ -349,5 +350,25 @@ SELECT * FROM clients WHERE name = '张三';
       };
     }
     return content;
+  }
+
+  async getMajors(): Promise<MajorInfo[]> {
+    console.log("[Mock] Getting majors list");
+    return [
+      {
+        id: "opengauss",
+        name: "OpenGauss",
+        path: "opengauss",
+      },
+      {
+        id: "mgca",
+        name: "Mgca",
+        path: "mgca",
+      },
+    ];
+  }
+
+  async setCurrentMajor(majorId: string): Promise<void> {
+    console.log(`[Mock] Setting current major to: ${majorId}`);
   }
 }

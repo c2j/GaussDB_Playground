@@ -1,5 +1,5 @@
 // 课程相关 Hooks
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { createCourseService } from "../services";
 
 const courseService = createCourseService();
@@ -44,5 +44,30 @@ export function useStepContent(
     queryFn: () => courseService.getStepContent(courseId, chapterDir, stepFile),
     enabled: !!courseId && !!chapterDir && !!stepFile,
     staleTime: 30 * 60 * 1000, // 30 minutes
+  });
+}
+
+// 获取所有专业目录
+export function useMajors() {
+  return useQuery({
+    queryKey: ["majors"],
+    queryFn: () => courseService.getMajors(),
+    staleTime: 10 * 60 * 1000, // 10 minutes
+  });
+}
+
+// 设置当前专业目录
+export function useSetCurrentMajor() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (majorId: string) => courseService.setCurrentMajor(majorId),
+    onSuccess: () => {
+      // 切换专业后清空课程缓存
+      queryClient.invalidateQueries({ queryKey: ["courses"] });
+      queryClient.invalidateQueries({ queryKey: ["course"] });
+      queryClient.invalidateQueries({ queryKey: ["chapter"] });
+      queryClient.invalidateQueries({ queryKey: ["step"] });
+    },
   });
 }

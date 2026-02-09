@@ -1,10 +1,22 @@
-import { useCourses, useCourseDetail, useCourseProgress } from "../hooks";
+import { useCourses, useCourseDetail, useCourseProgress, useMajors, useSetCurrentMajor } from "../hooks";
 import { useAppStore } from "../store/app.store";
 import { useEffect, useState } from "react";
 
 export function Sidebar() {
   const { data: courses, isLoading } = useCourses();
+  const { data: majors } = useMajors();
+  const setCurrentMajorMutation = useSetCurrentMajor();
   const [isTauriReady, setIsTauriReady] = useState(false);
+
+  const {
+    selectedCourseId,
+    selectedChapterId,
+    selectedMajorId,
+    setSelectedCourse,
+    setSelectedChapter,
+    setSelectedStep,
+    setSelectedMajor,
+  } = useAppStore();
 
   useEffect(() => {
     // 延迟检测 Tauri 环境
@@ -30,13 +42,6 @@ export function Sidebar() {
   console.log("[Sidebar] Render - isLoading:", isLoading);
   console.log("[Sidebar] Render - courses length:", courses?.length);
   console.log("[Sidebar] Render - isTauriReady:", isTauriReady);
-  const {
-    selectedCourseId,
-    selectedChapterId,
-    setSelectedCourse,
-    setSelectedChapter,
-    setSelectedStep,
-  } = useAppStore();
   const userId = "mock_user";
 
   // Get course detail when a course is selected
@@ -70,6 +75,23 @@ export function Sidebar() {
     }
   };
 
+  const handleMajorChange = async (majorId: string) => {
+    if (majorId !== selectedMajorId) {
+      setSelectedMajor(majorId);
+      await setCurrentMajorMutation.mutateAsync(majorId);
+      setSelectedCourse(null);
+      setSelectedChapter(null);
+      setSelectedStep(null);
+    }
+  };
+
+  // 自动选择第一个专业（如果没有选择的话）
+  useEffect(() => {
+    if (majors && majors.length > 0 && !selectedMajorId) {
+      setSelectedMajor(majors[0].id);
+    }
+  }, [majors, selectedMajorId, setSelectedMajor]);
+
   if (isLoading) {
     return (
       <div className="w-64 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 flex flex-col">
@@ -96,9 +118,30 @@ export function Sidebar() {
   return (
     <div className="w-64 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 flex flex-col">
       <div className="p-4 border-b border-slate-200 dark:border-slate-700">
-        <h1 className="text-lg font-bold text-slate-900 dark:text-white">
-          openGauss 课程
+        <h1 className="text-lg font-bold text-slate-900 dark:text-white mb-3">
+          课程学习
         </h1>
+
+        {/* 专业目录选择器 */}
+        {majors && majors.length > 0 && (
+          <div className="space-y-2">
+            <label className="text-xs font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+              专业目录
+            </label>
+            <select
+              value={selectedMajorId || ""}
+              onChange={(e) => handleMajorChange(e.target.value)}
+              disabled={setCurrentMajorMutation.isPending}
+              className="w-full px-3 py-2 text-sm bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-slate-900 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {majors.map((major) => (
+                <option key={major.id} value={major.id}>
+                  {major.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
       </div>
 
       <div className="flex-1 overflow-y-auto p-3 space-y-2" data-testid="course-list">

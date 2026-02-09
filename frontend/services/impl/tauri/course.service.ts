@@ -5,6 +5,7 @@ import type {
   CourseDetail,
   ChapterDetail,
   StepContent,
+  MajorInfo,
 } from "../../interfaces/course.service";
 
 // 使用 Tauri API npm 包
@@ -64,6 +65,29 @@ export class TauriCourseService implements ICourseService {
       return result;
     } catch (error) {
       console.error("[TauriCourseService] get_step_content error:", error);
+      throw error;
+    }
+  }
+
+  async getMajors(): Promise<MajorInfo[]> {
+    console.log("[TauriCourseService] Calling get_majors...");
+    try {
+      const result = await invoke<MajorInfo[]>("get_majors");
+      console.log("[TauriCourseService] get_majors result:", result);
+      return result;
+    } catch (error) {
+      console.error("[TauriCourseService] get_majors error:", error);
+      throw error;
+    }
+  }
+
+  async setCurrentMajor(majorId: string): Promise<void> {
+    console.log("[TauriCourseService] Calling set_current_major for:", majorId);
+    try {
+      await invoke("set_current_major", { majorId });
+      console.log("[TauriCourseService] set_current_major succeeded");
+    } catch (error) {
+      console.error("[TauriCourseService] set_current_major error:", error);
       throw error;
     }
   }

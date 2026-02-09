@@ -1,0 +1,57 @@
+{
+  "title": "高斯数据库 MGCA Primary 认证课程",
+  "description": "面向 MGCA Primary 认证和华为云 O&M 认证的完整高斯数据库课程，涵盖架构、安装、SQL 开发、性能调优、备份恢复、高可用和安全管理等核心主题。课程采用四阶段企业培训模式：理论基础、新手训练场、生产案例剖析、考试考评。",
+  "logo": "./assets/logo.png",
+  "poster": "./assets/poster.png",
+  "cover": "./assets/cover.png",
+  "container_live_time": "120",
+  "chapters": [
+    {
+      "content_dir": "architecture",
+      "title": "GaussDB 架构与原理",
+      "description": "学习 GaussDB 核心架构、存储引擎、WAL 机制、查询处理和优化原理",
+      "estimated_time": "60 min"
+    },
+    {
+      "content_dir": "installation",
+      "title": "安装与配置",
+      "description": "掌握 GaussDB 安装部署、参数配置和性能调优方法",
+      "estimated_time": "90 min"
+    },
+    {
+      "content_dir": "sql-development",
+      "title": "SQL 开发基础",
+      "description": "学习 SQL 基础语法、DDL/DML 操作、查询优化和高级 SQL 特性",
+      "estimated_time": "120 min"
+    },
+    {
+      "content_dir": "performance-tuning",
+      "title": "性能优化",
+      "description": "掌握索引设计、查询优化、参数调优和性能分析方法",
+      "estimated_time": "90 min"
+    },
+    {
+      "content_dir": "backup-recovery",
+      "title": "备份与恢复",
+      "description": "学习物理备份、逻辑备份、PITR 恢复和备份自动化",
+      "estimated_time": "90 min"
+    },
+    {
+      "content_dir": "high-availability",
+      "title": "高可用架构",
+      "description": "掌握主备配置、故障切换、多节点集群和容灾方案",
+      "estimated_time": "120 min"
+    },
+    {
+      "content_dir": "security",
+      "title": "安全与合规",
+      "description": "学习用户权限管理、数据加密、审计日志和合规要求",
+      "estimated_time": "90 min"
+    }
+  ],
+  "exam": {
+    "type": "mixed",
+    "duration": "120",
+    "pass_score": "80"
+  }
+}

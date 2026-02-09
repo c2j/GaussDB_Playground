@@ -1,0 +1,37 @@
+{
+  "title": "SQL 开发基础",
+  "description": "学习 SQL 基础语法、DDL/DML 操作、查询优化和高级 SQL 特性",
+  "details": {
+    "steps": [
+      {
+        "title": "Step 1 - SQL 基础和数据类型",
+        "md_file": "step1.md"
+      },
+      {
+        "title": "Step 2 - DDL 操作",
+        "md_file": "step2.md"
+      },
+      {
+        "title": "Step 3 - DML 操作",
+        "md_file": "step3.md"
+      },
+      {
+        "title": "Step 4 - 查询和连接",
+        "md_file": "step4.md"
+      },
+      {
+        "title": "Step 5 - 高级 SQL 特性",
+        "md_file": "step5.md"
+      }
+    ],
+    "introduction": {
+      "md_file": "intro.md"
+    },
+    "finish": {
+      "md_file": "finish.md"
+    }
+  },
+  "backend": {
+    "image_id": "gaussdb-5.0.0"
+  }
+}

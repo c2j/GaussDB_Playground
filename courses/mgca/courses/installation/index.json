@@ -1,0 +1,33 @@
+{
+  "title": "安装与配置",
+  "description": "掌握 GaussDB 安装部署、参数配置和性能调优方法",
+  "details": {
+    "steps": [
+      {
+        "title": "Step 1 - 安装要求和准备",
+        "md_file": "step1.md"
+      },
+      {
+        "title": "Step 2 - 安装流程",
+        "md_file": "step2.md"
+      },
+      {
+        "title": "Step 3 - 安装后配置",
+        "md_file": "step3.md"
+      },
+      {
+        "title": "Step 4 - 参数调优",
+        "md_file": "step4.md"
+      }
+    ],
+    "introduction": {
+      "md_file": "intro.md"
+    },
+    "finish": {
+      "md_file": "finish.md"
+    }
+  },
+  "backend": {
+    "image_id": "gaussdb-5.0.0"
+  }
+}

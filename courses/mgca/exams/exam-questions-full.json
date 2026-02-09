@@ -1,0 +1,628 @@
+{
+  "written_test": {
+    "single_choice": [
+      {
+        "id": "sc_001",
+        "module": "architecture",
+        "question": "GaussDB 的 WAL (Write-Ahead Logging) 机制的主要作用是什么？",
+        "options": [
+          "A. 提高查询性能",
+          "B. 确保数据持久性和崩溃恢复",
+          "C. 减少存储空间占用",
+          "D. 优化连接池管理"
+        ],
+        "answer": "B",
+        "explanation": "WAL 机制通过先写日志再写数据的原则，确保即使在系统崩溃的情况下也能通过重放日志恢复未持久化的事务，从而保证数据持久性。",
+        "difficulty": "basic"
+      },
+      {
+        "id": "sc_002",
+        "module": "architecture",
+        "question": "以下哪个不是 GaussDB 的存储引擎？",
+        "options": [
+          "A. 行存储引擎",
+          "B. 列存储引擎",
+          "C. 内存存储引擎",
+          "D. 分区存储引擎"
+        ],
+        "answer": "C",
+        "explanation": "GaussDB 支持行存储、列存储和分区存储，但没有专门的内存存储引擎。内存优化通过缓冲池和缓存机制实现。",
+        "difficulty": "basic"
+      },
+      {
+        "id": "sc_003",
+        "module": "installation",
+        "question": "在 GaussDB 安装过程中，以下哪个参数必须配置才能确保数据库正常启动？",
+        "options": [
+          "A. shared_buffers",
+          "B. max_connections",
+          "C. port",
+          "D. 以上都是"
+        ],
+        "answer": "D",
+        "explanation": "这三个参数都是数据库启动和运行的基本配置，shared_buffers 决定共享内存大小，max_connections 控制最大连接数，port 指定监听端口。",
+        "difficulty": "basic"
+      },
+      {
+        "id": "sc_004",
+        "module": "installation",
+        "question": "gs_ctl 工具的主要作用是什么？",
+        "options": [
+          "A. 数据备份",
+          "B. 数据库启动停止和控制",
+          "C. 查询优化",
+          "D. 用户管理"
+        ],
+        "answer": "B",
+        "explanation": "gs_ctl 是 GaussDB 的控制工具，用于启动、停止、重启数据库，查询数据库状态，执行 checkpoint 等操作。",
+        "difficulty": "basic"
+      },
+      {
+        "id": "sc_005",
+        "module": "sql",
+        "question": "以下哪个 SQL 命令用于修改表结构？",
+        "options": [
+          "A. CREATE TABLE",
+          "B. ALTER TABLE",
+          "C. UPDATE TABLE",
+          "D. MODIFY TABLE"
+        ],
+        "answer": "B",
+        "explanation": "ALTER TABLE 命令用于添加、删除或修改表结构和约束。CREATE TABLE 创建新表，UPDATE 修改表中数据。",
+        "difficulty": "basic"
+      },
+      {
+        "id": "sc_006",
+        "module": "sql",
+        "question": "在 SQL 中，事务的 ACID 特性不包括以下哪项？",
+        "options": [
+          "A. Atomicity (原子性)",
+          "B. Consistency (一致性)",
+          "C. Isolation (隔离性)",
+          "D. Efficiency (效率性)"
+        ],
+        "answer": "D",
+        "explanation": "ACID 是事务的四个基本特性：原子性、一致性、隔离性和持久性（Durability）。效率性不属于 ACID。",
+        "difficulty": "basic"
+      },
+      {
+        "id": "sc_007",
+        "module": "performance",
+        "question": "以下哪种索引类型最适合等值查询（WHERE column = value）？",
+        "options": [
+          "A. B-tree 索引",
+          "B. Hash 索引",
+          "C. GIN 索引",
+          "D. GiST 索引"
+        ],
+        "answer": "A",
+        "explanation": "B-tree 索引是最通用的索引类型，支持等值查询、范围查询和排序。Hash 索引只支持等值查询，但不支持范围查询。",
+        "difficulty": "intermediate"
+      },
+      {
+        "id": "sc_008",
+        "module": "performance",
+        "question": "EXPLAIN ANALYZE 和 EXPLAIN 的主要区别是什么？",
+        "options": [
+          "A. EXPLAIN 只显示估算成本，EXPLAIN ANALYZE 显示实际执行统计",
+          "B. EXPLAIN 需要管理员权限，EXPLAIN ANALYZE 不需要",
+          "C. EXPLAIN 更快，EXPLAIN ANALYZE 更慢",
+          "D. 两者完全相同"
+        ],
+        "answer": "A",
+        "explanation": "EXPLAIN 只显示优化器估算的执行计划和成本，不实际执行查询。EXPLAIN ANALYZE 会实际执行查询并返回真实的执行统计信息，包括实际行数、实际时间等。",
+        "difficulty": "intermediate"
+      },
+      {
+        "id": "sc_009",
+        "module": "backup",
+        "question": "gs_basebackup 工具主要用于哪种类型的备份？",
+        "options": [
+          "A. 逻辑备份",
+          "B. 物理备份",
+          "C. 增量备份",
+          "D. 差异备份"
+        ],
+        "answer": "B",
+        "explanation": "gs_basebackup 用于执行物理备份，直接复制数据文件和 WAL 日志。gs_dump/gs_restore 用于逻辑备份。",
+        "difficulty": "basic"
+      },
+      {
+        "id": "sc_010",
+        "module": "backup",
+        "question": "以下哪个参数控制 WAL 归档的超时时间？",
+        "options": [
+          "A. wal_keep_segments",
+          "B. archive_timeout",
+          "C. wal_buffers",
+          "D. checkpoint_timeout"
+        ],
+        "answer": "B",
+        "explanation": "archive_timeout 设置 WAL 归档的超时时间，即使 WAL 文件未写满也会强制归档。wal_keep_segments 控制保留的 WAL 段文件数量。",
+        "difficulty": "intermediate"
+      },
+      {
+        "id": "sc_011",
+        "module": "ha",
+        "question": "在主备复制架构中，以下哪种同步模式提供最高的数据安全性？",
+        "options": [
+          "A. 异步复制",
+          "B. 半同步复制",
+          "C. 同步复制",
+          "D. 延迟复制"
+        ],
+        "answer": "C",
+        "explanation": "同步复制确保主库事务在备库确认后才返回成功，提供最高的数据安全性，但性能最低。异步复制性能最高但有数据丢失风险。",
+        "difficulty": "intermediate"
+      },
+      {
+        "id": "sc_012",
+        "module": "ha",
+        "question": "以下哪种架构能够实现零 RPO（恢复点目标）？",
+        "options": [
+          "A. 主备异步复制",
+          "B. 主备同步复制",
+          "C. 共享存储架构",
+          "D. 延迟复制"
+        ],
+        "answer": "C",
+        "explanation": "共享存储架构中，主备共享同一个存储设备，数据写入存储后立即可见，可以实现零 RPO。主备复制架构通常 RPO > 0。",
+        "difficulty": "advanced"
+      },
+      {
+        "id": "sc_013",
+        "module": "security",
+        "question": "以下哪个配置用于启用数据库审计功能？",
+        "options": [
+          "A. logging_collector",
+          "B. audit_enabled",
+          "C. log_min_duration_statement",
+          "D. log_connections"
+        ],
+        "answer": "B",
+        "explanation": "audit_enabled 参数专门用于启用 GaussDB 的审计功能。logging_collector 是日志收集器，log_min_duration_statement 是慢查询日志配置。",
+        "difficulty": "basic"
+      },
+      {
+        "id": "sc_014",
+        "module": "security",
+        "question": "以下哪种机制可以防止 SQL 注入攻击？",
+        "options": [
+          "A. 使用参数化查询",
+          "B. 增加数据库连接数",
+          "C. 提高 shared_buffers",
+          "D. 禁用慢查询日志"
+        ],
+        "answer": "A",
+        "explanation": "参数化查询将 SQL 语句和数据分离，避免用户输入被解析为 SQL 代码，是防止 SQL 注入的最有效方法。",
+        "difficulty": "basic"
+      },
+      {
+        "id": "sc_015",
+        "module": "performance",
+        "question": "在 GaussDB 中，shared_buffers 参数建议设置为系统内存的多少比例？",
+        "options": [
+          "A. 10%-20%",
+          "B. 25%-40%",
+          "C. 50%-60%",
+          "D. 75%-90%"
+        ],
+        "answer": "B",
+        "explanation": "shared_buffers 通常设置为系统内存的 25%-40%，这是在缓存效果和给操作系统留出足够内存之间的平衡点。",
+        "difficulty": "intermediate"
+      }
+    ],
+    "multiple_choice": [
+      {
+        "id": "mc_001",
+        "module": "architecture",
+        "question": "以下哪些是 GaussDB 的后台进程？（多选）",
+        "options": [
+          "A. bgwriter",
+          "B. walwriter",
+          "C. autovacuum",
+          "D. postgres",
+          "E. checkpoint"
+        ],
+        "answer": ["A", "B", "C"],
+        "explanation": "GaussDB 的后台进程包括：bgwriter（后台写入）、walwriter（WAL 写入）、autovacuum（自动清理）。postgres 是客户端连接进程，checkpoint 是操作而非进程。",
+        "difficulty": "basic"
+      },
+      {
+        "id": "mc_002",
+        "module": "architecture",
+        "question": "以下哪些是 GaussDB 支持的存储模式？（多选）",
+        "options": [
+          "A. 行存储",
+          "B. 列存储",
+          "C. 内存表",
+          "D. 分区表",
+          "E. 外部表"
+        ],
+        "answer": ["A", "B", "D", "E"],
+        "explanation": "GaussDB 支持行存储（适合 OLTP）、列存储（适合 OLAP）、分区表（数据分区）和外部表（访问外部数据）。内存表不是独立的存储模式。",
+        "difficulty": "basic"
+      },
+      {
+        "id": "mc_003",
+        "module": "sql",
+        "question": "以下哪些是 SQL 中的约束类型？（多选）",
+        "options": [
+          "A. PRIMARY KEY",
+          "B. FOREIGN KEY",
+          "C. UNIQUE",
+          "D. NOT NULL",
+          "E. CHECK"
+        ],
+        "answer": ["A", "B", "C", "D", "E"],
+        "explanation": "这些都是 SQL 标准支持的约束类型：主键、外键、唯一约束、非空约束、检查约束。",
+        "difficulty": "basic"
+      },
+      {
+        "id": "mc_004",
+        "module": "performance",
+        "question": "以下哪些操作可能触发数据库执行 checkpoint？（多选）",
+        "options": [
+          "A. 达到 checkpoint_timeout 时间",
+          "B. WAL 日志达到 max_wal_size",
+          "C. 执行 CHECKPOINT 命令",
+          "D. 数据库关闭",
+          "E. 手动执行 VACUUM"
+        ],
+        "answer": ["A", "B", "C", "D"],
+        "explanation": "checkpoint 的触发条件包括：超时、WAL 达到阈值、手动执行命令、数据库关闭。VACUUM 不会触发 checkpoint。",
+        "difficulty": "intermediate"
+      },
+      {
+        "id": "mc_005",
+        "module": "backup",
+        "question": "以下哪些备份策略可以用于实现 PITR（时点恢复）？（多选）",
+        "options": [
+          "A. 完整物理备份 + WAL 归档",
+          "B. 逻辑备份 + WAL 归档",
+          "C. 完整逻辑备份",
+          "D. 增量物理备份",
+          "E. 完整物理备份（无 WAL）"
+        ],
+        "answer": ["A", "B"],
+        "explanation": "PITR 需要基础备份（物理或逻辑）加上 WAL 归档日志来恢复到指定时间点。仅备份无法实现精确的时点恢复。",
+        "difficulty": "intermediate"
+      },
+      {
+        "id": "mc_006",
+        "module": "ha",
+        "question": "以下哪些是高可用架构的典型模式？（多选）",
+        "options": [
+          "A. 主备复制",
+          "B. 多主复制",
+          "C. 共享存储集群",
+          "D. 分片架构",
+          "E. 缓存集群"
+        ],
+        "answer": ["A", "B", "C", "D"],
+        "explanation": "高可用架构包括：主备复制、多主复制、共享存储集群、分片架构。缓存集群主要用于性能优化，不是典型的高可用模式。",
+        "difficulty": "intermediate"
+      },
+      {
+        "id": "mc_007",
+        "module": "security",
+        "question": "以下哪些是 GaussDB 安全加固的最佳实践？（多选）",
+        "options": [
+          "A. 使用最小权限原则",
+          "B. 启用 SSL/TLS 加密连接",
+          "C. 定期更新密码",
+          "D. 启用审计日志",
+          "E. 禁用所有日志记录"
+        ],
+        "answer": ["A", "B", "C", "D"],
+        "explanation": "安全加固包括：最小权限、加密传输、密码管理、审计监控。禁用日志会降低可追溯性，不是安全实践。",
+        "difficulty": "intermediate"
+      },
+      {
+        "id": "mc_008",
+        "module": "performance",
+        "question": "以下哪些因素可能导致查询性能下降？（多选）",
+        "options": [
+          "A. 缺少合适的索引",
+          "B. 统计信息过期",
+          "C. 数据倾斜",
+          "D. 连接池配置过大",
+          "E. 磁盘 I/O 瓶颈"
+        ],
+        "answer": ["A", "B", "C", "E"],
+        "explanation": "性能下降的原因包括：缺少索引、统计信息过期、数据倾斜、I/O 瓶颈。连接池配置过大主要影响连接数管理，不直接导致查询变慢。",
+        "difficulty": "intermediate"
+      }
+    ],
+    "analysis": [
+      {
+        "id": "an_001",
+        "module": "architecture",
+        "question": "OLAP 场景下应该选择哪种存储模式？为什么？",
+        "answer": "列存储模式。因为列存储将同一列的数据连续存储，适合执行列式聚合、分析和统计查询，能够显著提高 OLAP 场景下的查询性能。",
+        "explanation": "列存储模式适合 OLAP 场景，因为：1) 聚合查询只需读取相关列，减少 I/O；2) 列数据类型相同，压缩效率高；3) 支持列级缓存。",
+        "difficulty": "intermediate",
+        "scoring_criteria": ["选择列存储模式", "解释原因", "说明 OLAP 场景特点", "提及性能优势"]
+      },
+      {
+        "id": "an_002",
+        "module": "installation",
+        "question": "在生产环境中部署 GaussDB 时，应该如何配置参数以平衡性能和可靠性？请举例说明。",
+        "answer": "需要根据业务场景调整关键参数。例如：shared_buffers 设为系统内存的 25-40%，max_connections 根据并发需求设置，work_mem 根据查询复杂度调整，checkpoint_timeout 和 wal_buffers 影响写入性能和崩溃恢复时间。",
+        "explanation": "参数配置需要考虑：内存使用、并发连接、查询复杂度、写入频率、RPO/RTO 要求。需要测试和监控验证配置效果。",
+        "difficulty": "advanced",
+        "scoring_criteria": ["提及关键参数", "说明配置依据", "考虑性能与可靠性平衡", "举例说明"]
+      },
+      {
+        "id": "an_003",
+        "module": "sql",
+        "question": "分析以下 SQL 查询的性能问题，并提出优化方案：SELECT * FROM orders WHERE customer_id IN (SELECT id FROM customers WHERE region = 'east')",
+        "answer": "该查询使用 IN 子查询可能导致多次重复查询。优化方案：1) 使用 JOIN 重写：SELECT o.* FROM orders o INNER JOIN customers c ON o.customer_id = c.id WHERE c.region = 'east'；2) 在 customers.region 和 orders.customer_id 上创建索引；3) 使用 EXISTS 替代 IN：SELECT * FROM orders o WHERE EXISTS (SELECT 1 FROM customers c WHERE c.id = o.customer_id AND c.region = 'east')。",
+        "explanation": "IN 子查询可能被解释器优化为嵌套循环或多次扫描。JOIN 通常有更好的优化空间。索引是关键优化手段。",
+        "difficulty": "intermediate",
+        "scoring_criteria": ["识别性能问题", "提出优化方案", "说明优化原理", "考虑索引使用"]
+      },
+      {
+        "id": "an_004",
+        "module": "performance",
+        "question": "在执行计划分析中，如果发现某个节点显示 'Seq Scan'（顺序扫描）且 cost 很高，应该采取哪些优化措施？",
+        "answer": "1) 检查是否缺少索引：为查询条件的列创建合适的索引；2) 分析数据分布：如果表数据量很小，顺序扫描可能更高效；3) 使用 EXPLAIN ANALYZE 验证索引是否被使用；4) 考虑分区表：大表按常用查询条件分区；5) 优化查询条件：避免对索引列使用函数或表达式。",
+        "explanation": "顺序扫描意味着全表读取，在大表上效率低。但小表上可能比索引扫描更快。需要结合实际情况分析。",
+        "difficulty": "intermediate",
+        "scoring_criteria": ["识别 Seq Scan 问题", "提出优化方法", "考虑数据量因素", "使用 EXPLAIN 验证"]
+      },
+      {
+        "id": "an_005",
+        "module": "backup",
+        "question": "设计一个满足 RPO < 5 分钟、RTO < 30 分钟的备份策略，并说明如何验证备份的有效性。",
+        "answer": "策略：1) 使用 WAL 实时归档（archive_timeout = 300s）实现 RPO < 5 分钟；2) 每日执行一次完整物理备份；3) 每 6 小时执行一次逻辑备份；4) 保留 7 天备份。验证：1) 定期进行恢复演练（至少每月一次）；2) 验证备份文件完整性（gs_restore --list）；3) 测试 PITR 恢复到不同时间点；4) 记录恢复时间和成功率。",
+        "explanation": "WAL 归档是实现低 RPO 的关键。多种备份类型提供灵活性。恢复演练是验证备份有效性的唯一可靠方法。",
+        "difficulty": "advanced",
+        "scoring_criteria": ["设计备份策略", "满足 RPO/RTO 要求", "说明验证方法", "考虑恢复演练"]
+      },
+      {
+        "id": "an_006",
+        "module": "ha",
+        "question": "在一个主备架构的高可用系统中，如果主库突然宕机，请描述完整的故障切换流程，并分析可能的数据丢失风险。",
+        "answer": "流程：1) 监控系统检测主库宕机（心跳超时）；2) 确认主库不可达（重试多次）；3) 评估备库同步状态；4) 停止应用连接；5) 提升备库为新主库；6) 更新 DNS 或应用配置指向新主库；7) 重启应用连接；8) 通知监控系统。数据丢失风险：异步复制：可能丢失主库崩溃前未同步的事务；半同步复制：如果备库在确认前故障，仍可能有数据丢失；同步复制：理论上无数据丢失，但主库崩溃时备库也可能受影响。",
+        "explanation": "故障切换需要快速且可靠。数据丢失风险取决于复制模式。同步复制最安全但性能最差。",
+        "difficulty": "advanced",
+        "scoring_criteria": ["描述切换流程", "分析数据丢失风险", "考虑复制模式影响", "提及监控和通知"]
+      },
+      {
+        "id": "an_007",
+        "module": "security",
+        "question": "在金融场景下，设计一个满足 PCI-DSS 合规要求的 GaussDB 安全方案。",
+        "answer": "方案包括：1) 数据加密：传输使用 SSL/TLS，静态数据使用 TDE（透明数据加密）或列级加密；2) 访问控制：基于角色的 RBAC，最小权限原则，定期审计权限；3) 审计日志：启用审计，记录所有敏感操作，日志保留至少 1 年；4) 网络隔离：数据库在独立网络段，限制访问 IP；5) 密码管理：强密码策略，定期更换，禁止共享账户；6) 补丁管理：及时应用安全补丁；7) 定期安全评估：渗透测试和漏洞扫描。",
+        "explanation": "PCI-DSS 对数据保护、访问控制、审计、加密等有严格要求。需要多层面安全措施。",
+        "difficulty": "advanced",
+        "scoring_criteria": ["数据加密方案", "访问控制设计", "审计日志配置", "合规要求覆盖"]
+      },
+      {
+        "id": "an_008",
+        "module": "performance",
+        "question": "分析一个电商平台的订单查询慢问题：SELECT * FROM orders WHERE create_time >= NOW() - INTERVAL '30 days' ORDER BY create_time DESC LIMIT 100。该表有 1000 万行数据。",
+        "answer": "性能问题：1) WHERE 条件对 create_time 使用函数（NOW()），可能导致索引失效；2) ORDER BY create_time DESC 需要排序；3) 表数据量大（1000 万），全表扫描慢。优化方案：1) 在 create_time 上创建 B-tree 索引；2) 使用应用层传入的静态时间值替代 NOW() 函数；3) 创建覆盖索引包含常用字段；4) 如果经常查询最近订单，考虑按日期分区；5) 使用 EXPLAIN ANALYZE 验证优化效果。",
+        "explanation": "索引列上的函数会导致索引失效。大数据量表必须有效利用索引。覆盖索引可以避免回表查询。",
+        "difficulty": "intermediate",
+        "scoring_criteria": ["识别性能瓶颈", "提出优化方案", "说明索引使用", "考虑分区策略"]
+      }
+    ]
+  },
+  "practical_exam": {
+    "tasks": [
+      {
+        "id": "pr_001",
+        "module": "installation",
+        "title": "GaussDB 安装和基础配置",
+        "description": "在给定环境中安装 GaussDB，完成基础配置，确保数据库可以正常启动并接受连接。",
+        "requirements": [
+          "使用 gs_install 命令安装 GaussDB",
+          "配置数据库监听端口为 5432",
+          "创建用户 omm 并授予数据库创建权限",
+          "启动数据库服务并验证状态",
+          "使用 gsql 工具连接数据库"
+        ],
+        "scoring": {
+          "correctness": 40,
+          "performance": 20,
+          "norm": 30,
+          "documentation": 10
+        },
+        "checklist": [
+          "正确安装 GaussDB",
+          "配置监听端口正确",
+          "创建用户并授予权限",
+          "数据库服务正常启动",
+          "可以使用 gsql 连接",
+          "安装步骤清晰",
+          "有配置说明文档",
+          "遵循最佳实践"
+        ],
+        "time_limit": 30,
+        "difficulty": "L2"
+      },
+      {
+        "id": "pr_002",
+        "module": "sql",
+        "title": "数据库设计和 SQL 开发",
+        "description": "根据业务需求设计数据库表结构，实现完整的 CRUD 操作，并编写查询语句。",
+        "requirements": [
+          "设计订单系统表结构（orders, order_items, products）",
+          "定义合适的主键、外键和约束",
+          "插入测试数据（至少 10 条订单，每订单 2-5 个商品）",
+          "编写查询：查询某用户的订单总额",
+          "编写查询：查询销量 Top 10 的商品",
+          "使用事务确保数据一致性"
+        ],
+        "scoring": {
+          "correctness": 35,
+          "performance": 35,
+          "norm": 20,
+          "documentation": 10
+        },
+        "checklist": [
+          "表结构设计合理",
+          "约束定义正确",
+          "测试数据符合要求",
+          "查询逻辑正确",
+          "使用事务管理",
+          "SQL 语法规范",
+          "有注释和文档",
+          "考虑索引设计"
+        ],
+        "time_limit": 45,
+        "difficulty": "L2"
+      },
+      {
+        "id": "pr_003",
+        "module": "performance",
+        "title": "查询性能优化",
+        "description": "分析给定慢查询，使用 EXPLAIN 诊断性能问题，并通过索引和查询重写优化性能。",
+        "requirements": [
+          "执行 EXPLAIN ANALYZE 分析慢查询",
+          "识别性能瓶颈（全表扫描、排序、连接方式）",
+          "创建合适的索引",
+          "优化查询语句（使用 JOIN 替代子查询等）",
+          "验证优化效果（对比优化前后的执行时间）",
+          "记录优化过程和结果"
+        ],
+        "scoring": {
+          "correctness": 30,
+          "performance": 40,
+          "norm": 20,
+          "documentation": 10
+        },
+        "checklist": [
+          "正确分析执行计划",
+          "识别性能问题",
+          "创建有效索引",
+          "优化查询逻辑",
+          "验证性能提升",
+          "优化过程记录完整",
+          "有对比数据",
+          "遵循最佳实践"
+        ],
+        "time_limit": 60,
+        "difficulty": "L3"
+      },
+      {
+        "id": "pr_004",
+        "module": "backup",
+        "title": "备份和恢复操作",
+        "description": "配置 WAL 归档，执行完整备份和逻辑备份，测试数据恢复。",
+        "requirements": [
+          "配置 WAL 归档参数（archive_mode, archive_command）",
+          "执行完整物理备份（gs_basebackup）",
+          "执行逻辑备份（gs_dump）",
+          "删除部分测试数据",
+          "使用逻辑备份恢复数据",
+          "验证数据完整性",
+          "配置定期备份任务（使用 cron）"
+        ],
+        "scoring": {
+          "correctness": 40,
+          "performance": 20,
+          "norm": 30,
+          "documentation": 10
+        },
+        "checklist": [
+          "WAL 归档配置正确",
+          "物理备份成功",
+          "逻辑备份成功",
+          "数据恢复成功",
+          "数据验证完整",
+          "定时任务配置",
+          "有操作日志",
+          "备份策略合理"
+        ],
+        "time_limit": 45,
+        "difficulty": "L2"
+      },
+      {
+        "id": "pr_005",
+        "module": "ha",
+        "title": "主备高可用配置",
+        "description": "配置主备复制架构，实现自动故障切换。",
+        "requirements": [
+          "在备机上安装 GaussDB",
+          "配置主备复制（postgresql.conf 和 pg_hba.conf）",
+          "启动备库并验证复制状态",
+          "配置自动故障切换脚本",
+          "模拟主库故障，验证切换",
+          "验证数据一致性",
+          "记录切换过程和结果"
+        ],
+        "scoring": {
+          "correctness": 35,
+          "performance": 25,
+          "norm": 30,
+          "documentation": 10
+        },
+        "checklist": [
+          "主备复制配置正确",
+          "复制状态正常",
+          "切换脚本可用",
+          "故障切换成功",
+          "数据一致性验证",
+          "切换过程记录",
+          "有监控配置",
+          "符合 HA 最佳实践"
+        ],
+        "time_limit": 60,
+        "difficulty": "L3"
+      },
+      {
+        "id": "pr_006",
+        "module": "security",
+        "title": "数据库安全加固",
+        "description": "实施 GaussDB 安全加固措施，配置审计和访问控制。",
+        "requirements": [
+          "创建角色和用户，实施最小权限",
+          "配置 SSL/TLS 加密连接",
+          "启用审计日志，记录敏感操作",
+          "配置行级安全（RLS）策略",
+          "测试安全配置有效性",
+          "生成安全配置报告"
+        ],
+        "scoring": {
+          "correctness": 40,
+          "performance": 20,
+          "norm": 30,
+          "documentation": 10
+        },
+        "checklist": [
+          "角色权限配置正确",
+          "SSL 配置成功",
+          "审计日志启用",
+          "RLS 策略有效",
+          "安全测试通过",
+          "配置文档完整",
+          "符合安全标准",
+          "有加固报告"
+        ],
+        "time_limit": 45,
+        "difficulty": "L2"
+      }
+    ]
+  },
+  "metadata": {
+    "version": "1.0",
+    "created_date": "2025-02-09",
+    "exam_config": {
+      "written_test": {
+        "total_questions": 30,
+        "single_choice_count": 15,
+        "multiple_choice_count": 8,
+        "analysis_count": 7,
+        "duration_minutes": 90,
+        "passing_score": 80
+      },
+      "practical_exam": {
+        "task_count": 6,
+        "duration_minutes": 180,
+        "passing_score": 80
+      }
+    }
+  }
+}

@@ -61,6 +61,13 @@ export interface SqlCommand {
   description?: string;
 }
 
+// 专业信息
+export interface MajorInfo {
+  id: string;
+  name: string;
+  path: string;
+}
+
 export interface ICourseService {
   /**
    * 获取所有课程列表
@@ -88,4 +95,14 @@ export interface ICourseService {
     chapterDir: string,
     stepFile: string
   ): Promise<StepContent>;
+
+  /**
+   * 获取所有可用的专业目录
+   */
+  getMajors(): Promise<MajorInfo[]>;
+
+  /**
+   * 设置当前专业目录
+   */
+  setCurrentMajor(majorId: string): Promise<void>;
 }

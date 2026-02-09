@@ -1,0 +1,41 @@
+{
+  "title": "安全与合规",
+  "description": "掌握用户管理、数据加密、审计日志和合规要求",
+  "details": {
+    "steps": [
+      {
+        "title": "Step 1 - 安全基础和威胁模型",
+        "md_file": "step1.md"
+      },
+      {
+        "title": "Step 2 - 用户管理和 RBAC",
+        "md_file": "step2.md"
+      },
+      {
+        "title": "Step 3 - 数据加密",
+        "md_file": "step3.md"
+      },
+      {
+        "title": "Step 4 - 审计和合规日志",
+        "md_file": "step4.md"
+      },
+      {
+        "title": "Step 5 - 行级安全",
+        "md_file": "step5.md"
+      },
+      {
+        "title": "Step 6 - 安全加固",
+        "md_file": "step6.md"
+      }
+    ],
+    "introduction": {
+      "md_file": "intro.md"
+    },
+    "finish": {
+      "md_file": "finish.md"
+    }
+  },
+  "backend": {
+    "image_id": "gaussdb-5.0.0"
+  }
+}

@@ -3,6 +3,15 @@ use std::fs;
 use serde::{Deserialize, Serialize};
 use anyhow::{Context, Result};
 
+// 专业信息
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct MajorInfo {
+    pub id: String,
+    pub name: String,
+    pub path: String,
+}
+
 // ============= 数据结构定义（与现有文件格式兼容） =============
 
 // 课程列表项
@@ -140,7 +149,8 @@ pub struct SqlCommand {
 // ============= 课程管理器 =============
 
 pub struct CourseManager {
-    base_path: PathBuf,
+    majors_base_path: PathBuf,
+    current_major: Option<String>,
 }
 
 impl CourseManager {
@@ -156,21 +166,119 @@ impl CourseManager {
                 .to_path_buf();
         }
 
-        // 添加课程路径
-        base_path = base_path.join("courses/opengauss/courses");
+        // 添加课程基础路径（courses 目录）
+        base_path = base_path.join("courses");
 
-        eprintln!("[CourseManager] Initializing with path: {:?}", base_path);
+        eprintln!("[CourseManager] Initializing with majors path: {:?}", base_path);
         eprintln!("[CourseManager] Path exists: {}", base_path.exists());
 
-        Ok(CourseManager { base_path })
+        // 默认选择第一个可用的专业目录
+        let current_major = Self::scan_available_majors(&base_path)?
+            .first()
+            .map(|m| m.id.clone());
+
+        eprintln!("[CourseManager] Default major: {:?}", current_major);
+
+        Ok(CourseManager { majors_base_path: base_path, current_major })
+    }
+
+    /// 获取所有可用的专业目录
+    pub fn get_available_majors(&self) -> Result<Vec<MajorInfo>> {
+        Self::scan_available_majors(&self.majors_base_path)
+    }
+
+    /// 静态方法：从指定基础路径扫描所有专业目录
+    fn scan_available_majors(base_path: &Path) -> Result<Vec<MajorInfo>> {
+        let mut majors = Vec::new();
+
+        eprintln!("[CourseManager] Scanning for majors in: {:?}", base_path);
+
+        if !base_path.exists() {
+            eprintln!("[CourseManager] Warning: courses directory does not exist");
+            return Ok(majors);
+        }
+
+        let entries = fs::read_dir(base_path)
+            .with_context(|| format!("Failed to read directory: {:?}", base_path))?;
+
+        for entry in entries {
+            let entry = entry.with_context(|| format!("Failed to read entry"))?;
+            let path = entry.path();
+
+            // 只处理目录
+            if path.is_dir() {
+                // 跳过隐藏目录
+                if let Some(name) = path.file_name() {
+                    let name_str = name.to_string_lossy();
+                    if name_str.starts_with('.') {
+                        continue;
+                    }
+
+                    // 检查是否存在 courses 子目录
+                    let courses_subdir = path.join("courses");
+                    if courses_subdir.exists() {
+                        majors.push(MajorInfo {
+                            id: name_str.to_string(),
+                            name: Self::format_major_name(&name_str),
+                            path: name_str.to_string(),
+                        });
+                        eprintln!("[CourseManager] Found major: {} at {:?}", name_str, courses_subdir);
+                    }
+                }
+            }
+        }
+
+        // 按名称排序
+        majors.sort_by(|a, b| a.name.cmp(&b.name));
+
+        eprintln!("[CourseManager] Found {} majors", majors.len());
+        Ok(majors)
+    }
+
+    /// 格式化专业名称（将 kebab-case 转换为 Title Case）
+    fn format_major_name(id: &str) -> String {
+        id.split('-')
+            .map(|s| {
+                let mut chars = s.chars();
+                match chars.next() {
+                    None => String::new(),
+                    Some(first) => first.to_uppercase().chain(chars).collect::<String>(),
+                }
+            })
+            .collect::<Vec<String>>()
+            .join(" ")
+    }
+
+    /// 设置当前专业目录
+    pub fn set_current_major(&mut self, major_id: String) -> Result<()> {
+        // 验证专业目录是否存在
+        let major_path = self.majors_base_path.join(&major_id).join("courses");
+        if !major_path.exists() {
+            return Err(anyhow::anyhow!("Major directory not found: {:?}", major_path));
+        }
+
+        self.current_major = Some(major_id);
+        eprintln!("[CourseManager] Set current major to: {:?}", self.current_major);
+        Ok(())
+    }
+
+    /// 获取当前基础路径
+    fn get_current_base_path(&self) -> Result<PathBuf> {
+        let major_id = self.current_major.as_ref()
+            .ok_or_else(|| anyhow::anyhow!("No major selected"))?;
+
+        let path = self.majors_base_path.join(major_id).join("courses");
+        eprintln!("[CourseManager] Current base path: {:?}", path);
+        Ok(path)
     }
 
     /// 获取所有课程列表
     pub async fn get_courses(&self) -> Result<Vec<CourseInfo>> {
-        eprintln!("[CourseManager] Getting courses from: {:?}", self.base_path);
+        let base_path = self.get_current_base_path()?;
+        eprintln!("[CourseManager] Getting courses from: {:?}", base_path);
 
         // 读取 course-list.json
-        let course_list_path = self.base_path.join("course-list.json");
+        let course_list_path = base_path.join("course-list.json");
 
         eprintln!("[CourseManager] Reading course list from: {:?}", course_list_path);
         eprintln!("[CourseManager] File exists: {}", course_list_path.exists());
@@ -191,7 +299,14 @@ impl CourseManager {
             eprintln!("[CourseManager] Processing course: id={}, dir={:?}", item.id, item.content_dir);
 
             // 尝试读取课程详情文件来获取 title 和 description
-            let course_content_path = self.base_path.join(&item.content_dir).join("course-content.json");
+            let course_content_path = base_path.join(&item.content_dir).join("course-content.json");
+
+            // 如果在子目录中找不到，尝试在父目录中查找（针对 mgca 这种结构）
+            let fallback_course_content_path = if item.content_dir == "." {
+                base_path.parent().and_then(|p| Some(p.join("course-content.json")))
+            } else {
+                None
+            };
 
             let (title, description, logo, poster, cover) = if course_content_path.exists() {
                 match fs::read_to_string(&course_content_path) {
@@ -208,6 +323,27 @@ impl CourseManager {
                         eprintln!("[CourseManager] Failed to read course-content.json for {}: {}", item.content_dir, e);
                         (None, None, None, None, None)
                     }
+                }
+            } else if let Some(fallback_path) = fallback_course_content_path {
+                if fallback_path.exists() {
+                    match fs::read_to_string(&fallback_path) {
+                        Ok(content) => {
+                            if let Ok(detail) = serde_json::from_str::<CourseDetailInternal>(&content) {
+                                eprintln!("[CourseManager] Loaded details from fallback for {}: {}", item.content_dir, detail.title);
+                                (Some(detail.title), Some(detail.description), Some(detail.logo), Some(detail.poster), Some(detail.cover))
+                            } else {
+                                eprintln!("[CourseManager] Failed to parse fallback course-content.json for {}", item.content_dir);
+                                (None, None, None, None, None)
+                            }
+                        }
+                        Err(e) => {
+                            eprintln!("[CourseManager] Failed to read fallback course-content.json for {}: {}", item.content_dir, e);
+                            (None, None, None, None, None)
+                        }
+                    }
+                } else {
+                    eprintln!("[CourseManager] course-content.json not found for {} (fallback)", item.content_dir);
+                    (None, None, None, None, None)
                 }
             } else {
                 eprintln!("[CourseManager] course-content.json not found for {}", item.content_dir);
@@ -234,8 +370,10 @@ impl CourseManager {
     pub async fn get_course_detail(&self, course_id: &str) -> Result<CourseDetail> {
         eprintln!("[CourseManager] get_course_detail called with courseId: {}", course_id);
 
+        let base_path = self.get_current_base_path()?;
+
         // 首先读取 course-list.json 来查找对应的 content_dir
-        let course_list_path = self.base_path.join("course-list.json");
+        let course_list_path = base_path.join("course-list.json");
         let content = fs::read_to_string(&course_list_path)
             .with_context(|| format!("Failed to read {:?}", course_list_path))?;
 
@@ -254,9 +392,22 @@ impl CourseManager {
 
         let content_dir = content_dir.ok_or_else(|| anyhow::anyhow!("Course not found with id: {}", course_id))?;
 
-        let course_content_path = self.base_path.join(&content_dir).join("course-content.json");
+        let course_content_path = base_path.join(&content_dir).join("course-content.json");
 
         eprintln!("[CourseManager] Reading course content from: {:?}", course_content_path);
+
+        // 如果在子目录中找不到，尝试在父目录中查找
+        let course_content_path = if !course_content_path.exists() && content_dir == "." {
+            if let Some(parent) = base_path.parent() {
+                let fallback_path = parent.join("course-content.json");
+                eprintln!("[CourseManager] Trying fallback path: {:?}", fallback_path);
+                fallback_path
+            } else {
+                course_content_path
+            }
+        } else {
+            course_content_path
+        };
 
         let content = fs::read_to_string(&course_content_path)
             .with_context(|| format!("Failed to read {:?}", course_content_path))?;
@@ -282,8 +433,10 @@ impl CourseManager {
     pub async fn get_chapter_detail(&self, course_id: &str, chapter_dir: &str) -> Result<ChapterDetail> {
         eprintln!("[CourseManager] get_chapter_detail called with courseId: {}, chapterDir: {}", course_id, chapter_dir);
 
+        let base_path = self.get_current_base_path()?;
+
         // 根据 course_id 查找对应的 content_dir
-        let course_list_path = self.base_path.join("course-list.json");
+        let course_list_path = base_path.join("course-list.json");
         let content = fs::read_to_string(&course_list_path)
             .with_context(|| format!("Failed to read {:?}", course_list_path))?;
 
@@ -303,7 +456,12 @@ impl CourseManager {
         let content_dir_from_id = content_dir_from_id.ok_or_else(|| anyhow::anyhow!("Course not found with id: {}", course_id))?;
 
         // 使用找到的 content_dir 和传入的 chapter_dir 构建路径
-        let chapter_json_path = self.base_path.join(&content_dir_from_id).join(chapter_dir).join("index.json");
+        // 如果 content_dir_from_id 是 "."，直接使用 base_path（跳过 join）
+        let chapter_json_path = if content_dir_from_id == "." {
+            base_path.join(chapter_dir).join("index.json")
+        } else {
+            base_path.join(&content_dir_from_id).join(chapter_dir).join("index.json")
+        };
 
         eprintln!("[CourseManager] Reading chapter from: {:?}", chapter_json_path);
 
@@ -336,8 +494,10 @@ impl CourseManager {
         eprintln!("[CourseManager] get_step_content called with courseId: {}, chapterDir: {}, stepFile: {}",
             course_id, chapter_dir, step_file);
 
+        let base_path = self.get_current_base_path()?;
+
         // 根据 course_id 查找对应的 content_dir
-        let course_list_path = self.base_path.join("course-list.json");
+        let course_list_path = base_path.join("course-list.json");
         let content = fs::read_to_string(&course_list_path)
             .with_context(|| format!("Failed to read {:?}", course_list_path))?;
 
@@ -357,10 +517,17 @@ impl CourseManager {
         let content_dir_from_id = content_dir_from_id.ok_or_else(|| anyhow::anyhow!("Course not found with id: {}", course_id))?;
 
         // 使用找到的 content_dir 和传入的 chapter_dir 构建路径
-        let step_path = self.base_path
-            .join(&content_dir_from_id)
-            .join(chapter_dir)
-            .join(step_file);
+        // 如果 content_dir_from_id 是 "."，直接使用 base_path（跳过 join）
+        let step_path = if content_dir_from_id == "." {
+            base_path
+                .join(chapter_dir)
+                .join(step_file)
+        } else {
+            base_path
+                .join(&content_dir_from_id)
+                .join(chapter_dir)
+                .join(step_file)
+        };
 
         eprintln!("[CourseManager] Reading step from: {:?}", step_path);
 
@@ -377,7 +544,6 @@ impl CourseManager {
     fn parse_markdown_step(&self, content: &str, step_file: &str) -> Result<StepContent> {
         let lines: Vec<&str> = content.lines().collect();
         let mut title = String::new();
-        let mut content_text = String::new();
         let mut sql_commands = Vec::new();
         let mut in_code_block = false;
         let mut code_block_lang = String::new();
@@ -436,11 +602,9 @@ impl CourseManager {
             }
         }
 
-        content_text = content.to_string();
-
         Ok(StepContent {
             title,
-            content: content_text,
+            content: content.to_string(),
             sql_commands: if sql_commands.is_empty() { None } else { Some(sql_commands) },
         })
     }

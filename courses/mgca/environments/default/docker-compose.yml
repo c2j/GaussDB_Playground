@@ -1,0 +1,123 @@
+version: '3.8'
+
+services:
+  gaussdb-primary:
+    image: gaussdb:5.0.0-enterprise
+    container_name: mgca-gaussdb-primary
+    hostname: gaussdb-primary
+    ports:
+      - "5432:5432"
+      - "8080:8080"
+    environment:
+      - GS_PASSWORD=OpenGauss@123
+      - GS_PORT=5432
+      - GS_USERNAME=omm
+      - GS_DBNAME=postgres
+    volumes:
+      - gaussdb-primary-data:/data/gaussdb
+      - ./backups:/data/backups
+      - ./scripts:/opt/scripts
+    networks:
+      - mgca-network
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
+        reservations:
+          cpus: '1'
+          memory: 2G
+    healthcheck:
+      test: ["CMD", "gsql", "-h", "localhost", "-U", "omm", "-d", "postgres", "-c", "SELECT 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  gaussdb-standby:
+    image: gaussdb:5.0.0-enterprise
+    container_name: mgca-gaussdb-standby
+    hostname: gaussdb-standby
+    ports:
+      - "5433:5432"
+    environment:
+      - GS_PASSWORD=OpenGauss@123
+      - GS_PORT=5432
+      - GS_USERNAME=omm
+      - GS_DBNAME=postgres
+      - REPLICATION_MODE=standby
+      - PRIMARY_HOST=gaussdb-primary
+      - PRIMARY_PORT=5432
+    volumes:
+      - gaussdb-standby-data:/data/gaussdb
+      - ./backups:/data/backups
+    networks:
+      - mgca-network
+    depends_on:
+      - gaussdb-primary
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
+        reservations:
+          cpus: '1'
+          memory: 2G
+
+  monitoring:
+    image: prometheus:latest
+    container_name: mgca-monitoring
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    networks:
+      - mgca-network
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: mgca-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin123
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources
+    networks:
+      - mgca-network
+    depends_on:
+      - monitoring
+
+networks:
+  mgca-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+volumes:
+  gaussdb-primary-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /data/mgca/gaussdb-primary
+  gaussdb-standby-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /data/mgca/gaussdb-standby
+  prometheus-data:
+    driver: local
+  grafana-data:
+    driver: local

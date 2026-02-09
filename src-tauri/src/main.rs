@@ -5,7 +5,7 @@ mod database;
 mod courses;
 
 use database::{DbConfig, ConnectionStatus, QueryResult, TableInfo, DatabaseManager};
-use courses::{CourseManager, CourseInfo, CourseDetail, ChapterDetail, StepContent};
+use courses::{CourseManager, CourseInfo, CourseDetail, ChapterDetail, StepContent, MajorInfo};
 use std::sync::Mutex;
 use tokio::sync::Mutex as TokioMutex;
 
@@ -135,6 +135,30 @@ async fn get_step_content(
     Ok(result)
 }
 
+#[tauri::command]
+async fn get_majors(state: tauri::State<'_, AppState>) -> Result<Vec<MajorInfo>, String> {
+    eprintln!("[Tauri Command] get_majors called");
+    let manager = state.course_manager.lock().await;
+
+    let result = manager.get_available_majors()
+        .map_err(|e| format!("Failed to get majors: {}", e))?;
+
+    eprintln!("[Tauri Command] get_majors returning {} majors", result.len());
+    Ok(result)
+}
+
+#[tauri::command]
+async fn set_current_major(state: tauri::State<'_, AppState>, major_id: String) -> Result<(), String> {
+    eprintln!("[Tauri Command] set_current_major called with majorId: {}", major_id);
+    let mut manager = state.course_manager.lock().await;
+
+    manager.set_current_major(major_id)
+        .map_err(|e| format!("Failed to set current major: {}", e))?;
+
+    eprintln!("[Tauri Command] set_current_major succeeded");
+    Ok(())
+}
+
 fn main() {
     let db_manager = DatabaseManager::new()
         .expect("Failed to create DatabaseManager");
@@ -160,6 +184,8 @@ fn main() {
             get_course_detail,
             get_chapter_detail,
             get_step_content,
+            get_majors,
+            set_current_major,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
