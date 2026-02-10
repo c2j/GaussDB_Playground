@@ -5,8 +5,10 @@ import type { DbConfig, QueryResult, ConnectionStatus } from "../services/interf
 import { useTestConnection, useExecuteQuery, useSchemaInfo } from "../hooks";
 import { useAppStore } from "../store/app.store";
 
-export function Playground() {
-  const setDbConnected = useAppStore((state) => state.setDbConnected);
+ export function Playground() {
+   const setDbConnected = useAppStore((state) => state.setDbConnected);
+   const expandSqlPractice = useAppStore((state) => state.expandSqlPractice);
+   const sqlPracticeAutoExpanded = useAppStore((state) => state.sqlPracticeAutoExpanded);
 
   const [config, setConfig] = useState<Partial<DbConfig>>({
     host: "localhost",
@@ -46,6 +48,11 @@ export function Playground() {
       });
       // Update global connection state
       setDbConnected(result.connected);
+      
+      // Auto-expand SQL practice area when connection succeeds
+      if (result.connected && !sqlPracticeAutoExpanded) {
+        expandSqlPractice();
+      }
     } catch (error) {
       setTestResult({ success: false, message: "连接失败" });
       setDbConnected(false);

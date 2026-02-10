@@ -1,0 +1,22 @@
+{
+  "title": "GaussDB 架构与原理",
+  "description": "学习 GaussDB 核心架构、存储引擎、WAL 机制、查询处理和优化原理",
+  "logo": "../assets/logo.png",
+  "poster": "../assets/poster.png",
+  "cover": "../assets/cover.png",
+  "container_live_time": "120",
+  "chapters": [
+    {
+      "content_dir": "theory-intro",
+      "title": "架构原理学习",
+      "description": "学习 GaussDB 核心架构、存储引擎、WAL 机制、查询处理和优化原理",
+      "estimated_time": "60 min"
+    },
+    {
+      "content_dir": "lab-exercises",
+      "title": "实验练习",
+      "description": "通过实际实验加深对 GaussDB 架构的理解，包括进程监控、内存配置、查询优化等实践",
+      "estimated_time": "60 min"
+    }
+  ]
+}

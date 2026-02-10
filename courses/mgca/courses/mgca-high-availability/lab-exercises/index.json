@@ -1,0 +1,33 @@
+{
+  "title": "高可用 实验",
+  "description": "通过实验练习巩固高可用的知识",
+  "details": {
+    "steps": [
+      {
+        "title": "实验 1",
+        "md_file": "lab1.md"
+      },
+      {
+        "title": "实验 2",
+        "md_file": "lab2.md"
+      },
+      {
+        "title": "实验 3",
+        "md_file": "lab3.md"
+      },
+      {
+        "title": "实验 4",
+        "md_file": "lab4.md"
+      }
+    ],
+    "introduction": {
+      "md_file": "intro.md"
+    },
+    "finish": {
+      "md_file": "finish.md"
+    }
+  },
+  "backend": {
+    "image_id": "gaussdb-5.0.0"
+  }
+}

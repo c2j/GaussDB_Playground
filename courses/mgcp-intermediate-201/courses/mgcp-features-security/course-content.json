@@ -1,0 +1,16 @@
+{
+  "title": "功能特性与安全管理",
+  "description": "探索高级功能和安全策略，如权限控制和数据加密。",
+  "logo": "../assets/logo.png",
+  "poster": "../assets/poster.png",
+  "cover": "../assets/cover.png",
+  "container_live_time": "180",
+  "chapters": [
+    {
+      "content_dir": "main-chapter",
+      "title": "功能特性与安全管理",
+      "description": "探索高级功能和安全策略，如权限控制和数据加密。",
+      "estimated_time": "30 min"
+    }
+  ]
+}

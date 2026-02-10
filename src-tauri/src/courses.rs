@@ -19,6 +19,8 @@ pub struct MajorInfo {
 pub struct CourseListItem {
     pub id: String,
     pub content_dir: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub content_intro: Option<String>,
     pub status: Vec<String>,
 }
 
@@ -645,5 +647,70 @@ impl CourseManager {
         } else {
             Some(description)
         }
+    }
+
+    /// 获取课程介绍
+    pub async fn get_course_introduction(&self, course_id: &str) -> Result<StepContent> {
+        eprintln!("[CourseManager] get_course_introduction called with courseId: {}", course_id);
+
+        let base_path = self.get_current_base_path()?;
+
+        // 根据 course_id 查找对应的 content_dir
+        let course_list_path = base_path.join("course-list.json");
+        let content = fs::read_to_string(&course_list_path)
+            .with_context(|| format!("Failed to read {:?}", course_list_path))?;
+
+        let course_list: CourseList = serde_json::from_str(&content)
+            .with_context(|| format!("Failed to parse {:?}", course_list_path))?;
+
+        // 根据 course_id 查找对应的课程项
+        let mut course_item = None;
+        for item in &course_list.courses {
+            if item.id == course_id {
+                course_item = Some(item.clone());
+                eprintln!("[CourseManager] Found course item: {} - {:?}", item.id, item.content_dir);
+                break;
+            }
+        }
+
+        let course_item = course_item.ok_or_else(|| anyhow::anyhow!("Course not found with id: {}", course_id))?;
+
+        // 从 course-list.json 中读取 content_intro 字段
+        let intro_file = course_item.content_intro.clone().unwrap_or_else(|| {
+            // 如果 content_intro 不存在，使用旧的逻辑
+            eprintln!("[CourseManager] No content_intro field, using fallback logic");
+            if course_item.content_dir == "." {
+                format!("{}-intro.md", course_id)
+            } else {
+                format!("{}/intro.md", course_item.content_dir)
+            }
+        });
+
+        // 构建介绍文件的完整路径
+        let intro_path = base_path.join(&intro_file);
+
+        eprintln!("[CourseManager] Looking for intro at: {:?}", intro_path);
+
+        if !intro_path.exists() {
+            // 如果找不到，返回一个默认的介绍内容
+            eprintln!("[CourseManager] Intro file not found, returning default content");
+            return Ok(StepContent {
+                title: format!("课程介绍 - {}", course_id),
+                content: format!("课程 {} 的介绍内容正在开发中...", course_id),
+                sql_commands: None,
+            });
+        }
+
+        let markdown_content = fs::read_to_string(&intro_path)
+            .with_context(|| format!("Failed to read {:?}", intro_path))?;
+
+        eprintln!("[CourseManager] Loaded intro content, length: {} bytes", markdown_content.len());
+
+        // 简单的 Markdown 内容
+        Ok(StepContent {
+            title: format!("课程介绍 - {}", course_id),
+            content: markdown_content,
+            sql_commands: None,
+        })
     }
 }

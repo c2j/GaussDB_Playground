@@ -1,0 +1,22 @@
+{
+  "title": "安全",
+  "description": "掌握用户管理、数据加密、审计日志和合规要求",
+  "logo": "../assets/logo.png",
+  "poster": "../assets/poster.png",
+  "cover": "../assets/cover.png",
+  "container_live_time": "120",
+  "chapters": [
+    {
+      "content_dir": "theory-intro",
+      "title": "理论学习",
+      "description": "掌握用户管理、数据加密、审计日志和合规要求",
+      "estimated_time": "60 min"
+    },
+    {
+      "content_dir": "lab-exercises",
+      "title": "实验练习",
+      "description": "通过实际实验加深对安全的理解",
+      "estimated_time": "60 min"
+    }
+  ]
+}

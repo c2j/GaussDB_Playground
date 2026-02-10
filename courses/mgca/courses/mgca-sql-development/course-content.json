@@ -1,0 +1,22 @@
+{
+  "title": "SQL开发基础",
+  "description": "学习 SQL 基础语法、DDL/DML 操作、查询优化和高级 SQL 特性",
+  "logo": "../assets/logo.png",
+  "poster": "../assets/poster.png",
+  "cover": "../assets/cover.png",
+  "container_live_time": "120",
+  "chapters": [
+    {
+      "content_dir": "theory-intro",
+      "title": "理论学习",
+      "description": "学习 SQL 基础语法、DDL/DML 操作、查询优化和高级 SQL 特性",
+      "estimated_time": "60 min"
+    },
+    {
+      "content_dir": "lab-exercises",
+      "title": "实验练习",
+      "description": "通过实际实验加深对SQL开发基础的理解",
+      "estimated_time": "60 min"
+    }
+  ]
+}

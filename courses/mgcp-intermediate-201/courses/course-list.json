@@ -1,9 +1,58 @@
 {
   "courses": [
     {
-      "id": "mgcp-intermediate-201",
-      "content_dir": ".",
-      "status": ["online", "test"]
+      "id": "1",
+      "content_dir": "mgcp-ecosystem-architecture",
+      "status": [
+        "online",
+        "test"
+      ],
+      "content_intro": "mgcp-ecosystem-architecture/main-chapter/intro.md"
+    },
+    {
+      "id": "2",
+      "content_dir": "mgcp-maintenance-data",
+      "status": [
+        "online",
+        "test"
+      ],
+      "content_intro": "mgcp-maintenance-data/main-chapter/intro.md"
+    },
+    {
+      "id": "3",
+      "content_dir": "mgcp-features-security",
+      "status": [
+        "online",
+        "test"
+      ],
+      "content_intro": "mgcp-performance-sql/main-chapter/intro.md"
+    },
+    {
+      "id": "4",
+      "content_dir": "mgcp-performance-sql",
+      "status": [
+        "online",
+        "test"
+      ],
+      "content_intro": "mgcp-features-security/main-chapter/intro.md"
+    },
+    {
+      "id": "5",
+      "content_dir": "mgcp-backup-ha",
+      "status": [
+        "online",
+        "test"
+      ],
+      "content_intro": "mgcp-backup-ha/main-chapter/intro.md"
+    },
+    {
+      "id": "6",
+      "content_dir": "mgcp-management-tools",
+      "status": [
+        "online",
+        "test"
+      ],
+      "content_intro": "mgcp-management-tools/main-chapter/intro.md"
     }
   ]
 }

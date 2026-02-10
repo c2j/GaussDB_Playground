@@ -1,7 +1,7 @@
 {
   "$schema": "https://schema.tauri.app/config/1",
   "package": {
-    "productName": "Tauri React App",
+    "productName": "Database Playground Desktop",
     "version": "0.1.0"
   },
   "tauri": {
@@ -9,10 +9,10 @@
       "active": true,
       "targets": "all",
       "identifier": "com.example.tauri-react-app",
-      "publisher": "Your Name",
-      "copyright": "Copyright © 2025 Your Name. All rights reserved.",
+      "publisher": "CHen Jianjun",
+      "copyright": "Copyright © 2025 C2J. All rights reserved.",
       "category": "DeveloperTool",
-      "shortDescription": "A Tauri + React application",
+      "shortDescription": "Database Playground Desktop application",
       "longDescription": "This is a starter template for building Tauri applications with React and TypeScript."
     },
     "allowlist": {
@@ -24,7 +24,7 @@
     },
     "windows": [
       {
-        "title": "Tauri React App",
+        "title": "Database Playground Desktop",
         "width": 1200,
         "height": 800,
         "resizable": true,

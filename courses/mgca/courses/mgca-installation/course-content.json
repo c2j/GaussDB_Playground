@@ -1,0 +1,22 @@
+{
+  "title": "安装与配置",
+  "description": "掌握 GaussDB 安装部署、参数配置和性能调优方法",
+  "logo": "../assets/logo.png",
+  "poster": "../assets/poster.png",
+  "cover": "../assets/cover.png",
+  "container_live_time": "120",
+  "chapters": [
+    {
+      "content_dir": "theory-intro",
+      "title": "理论学习",
+      "description": "掌握 GaussDB 安装部署、参数配置和性能调优方法",
+      "estimated_time": "60 min"
+    },
+    {
+      "content_dir": "lab-exercises",
+      "title": "实验练习",
+      "description": "通过实际实验加深对安装与配置的理解",
+      "estimated_time": "60 min"
+    }
+  ]
+}

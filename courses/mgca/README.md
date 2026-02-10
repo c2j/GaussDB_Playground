@@ -2,28 +2,37 @@
 
 ## 课程概述
 
-本课程是为准备 MGCA Primary 认证和华为云 O&M 认证的学习者设计的完整 GaussDB 学习路径。课程采用四阶段企业培训模式，从理论基础到实战应用，全面覆盖 GaussDB 架构、安装配置、SQL 开发、性能优化、备份恢复、高可用和安全管理等核心主题。
+本课程是为准备 MGCA Primary 认证和华为云 O&M 认证的学习者设计的完整 GaussDB 学习路径。课程采用四阶段企业培训模式，从理论基础到实战应用，全面覆盖 GaussDB 架构、安装配置、SQL 开发、性能优化、备份恢复、高可用和安全管理等核心主题。课程包含7门独立课程，可按需学习或完成全部课程获得认证。
 
 ## 课程结构
 
 ```
 courses/mgca/
-├── course-content.json          # 课程主配置文件
-├── courses/                    # 课程模块目录
-│   └── architecture/          # GaussDB 架构与原理
-│       ├── index.json          # 章节元数据
-│       ├── intro.md           # 章节介绍
-│       ├── step1.md          # 步骤 1: GaussDB 核心架构
-│       ├── step2.md          # 步骤 2: 存储引擎与 WAL 机制
-│       ├── step3.md          # 步骤 3: 查询处理与优化
-│       └── finish.md         # 章节总结
+├── course-content.json          # 课程包目录配置文件
+├── courses/                    # 独立课程目录
+│   ├── mgca-architecture/          # GaussDB 架构与原理（独立课程）
+│   │   ├── index.json          # 课程元数据
+│   │   ├── course-content.json  # 课程详情
+│   │   ├── intro.md           # 课程介绍
+│   │   ├── step1.md          # 步骤1: GaussDB 核心架构
+│   │   ├── step2.md          # 步骤2: 存储引擎与 WAL 机制
+│   │   ├── step3.md          # 步骤3: 查询处理与优化
+│   │   ├── finish.md         # 课程总结
+│   │   └── lab*.md           # 实验文件（如有）
+│   ├── mgca-installation/         # 安装与配置（独立课程）
+│   ├── mgca-sql-development/      # SQL 开发基础（独立课程）
+│   ├── mgca-performance-tuning/    # 性能优化（独立课程）
+│   ├── mgca-backup-recovery/       # 备份与恢复（独立课程）
+│   ├── mgca-high-availability/      # 高可用架构（独立课程）
+│   ├── mgca-security/               # 安全与合规（独立课程）
+│   └── course-list.json            # 课程列表（7门独立课程）
 ├── exams/                     # 考试评估框架
 │   └── exam-questions.json  # 题库和评分标准
 ├── assets/                    # 课程资源
 │   ├── logo.png
 │   ├── poster.png
 │   └── cover.png
-├── environments/               # 训练环境配置
+├── environments/               # 实训环境配置
 │   ├── default/               # 默认环境模板
 │   └── customization/        # 自定义环境模板
 └── README.md                  # 本文件
@@ -31,44 +40,44 @@ courses/mgca/
 
 ## 课程模块
 
-### 1. GaussDB 架构与原理 (60 min)
+### 1. GaussDB 架构与原理 (60 min) - `mgca-architecture`
 - GaussDB 核心架构和进程模型
 - 存储引擎与 WAL 机制
 - 查询处理与优化原理
 
-### 2. 安装与配置 (90 min)
+### 2. 安装与配置 (90 min) - `mgca-installation`
 - 安装要求和准备工作
 - 安装流程和配置
 - 参数调优和性能配置
 
-### 3. SQL 开发基础 (120 min)
+### 3. SQL 开发基础 (120 min) - `mgca-sql-development`
 - SQL 基础和数据类型
 - DDL 操作（CREATE, ALTER, DROP）
 - DML 操作（INSERT, UPDATE, DELETE）
 - 查询和连接
 - 高级 SQL 特性（CTEs, 窗口函数）
 
-### 4. 性能优化 (90 min)
+### 4. 性能优化 (90 min) - `mgca-performance-tuning`
 - 性能基础和指标
 - 索引设计和优化
 - 查询优化（EXPLAIN）
 - 参数调优
 
-### 5. 备份与恢复 (90 min)
+### 5. 备份与恢复 (90 min) - `mgca-backup-recovery`
 - 备份概念和策略
 - 物理备份（gs_basebackup）
 - 逻辑备份（gs_dump/gs_restore）
 - 时点恢复（PITR）
 - 备份自动化和调度
 
-### 6. 高可用架构 (120 min)
+### 6. 高可用架构 (120 min) - `mgca-high-availability`
 - HA 架构和概念
 - 主备配置
 - 故障切换和切换
 - 多节点集群
 - 跨区域容灾
 
-### 7. 安全与合规 (90 min)
+### 7. 安全与合规 (90 min) - `mgca-security`
 - 安全基础和威胁模型
 - 用户管理和基于角色的访问控制
 - 数据加密（静态和传输中）
@@ -121,6 +130,11 @@ courses/mgca/
 - 按顺序学习所有模块
 - 总时长: 约 10-12 小时
 - 适合希望全面掌握 GaussDB 的学习者
+
+### 灵活学习路径
+- 可按需选择独立课程学习
+- 每门课程独立完成，获得课程证书
+- 完成7门全部课程获得完整认证
 
 ## 交互式命令
 
@@ -192,7 +206,7 @@ courses/mgca/
 
 课程内容融入了企业级规范和最佳实践：
 
-- 等保合规要求
+- 确保合规要求
 - 性能指标（RPO/RTO）
 - 安全加固 CheckList
 - 监控和告警标准

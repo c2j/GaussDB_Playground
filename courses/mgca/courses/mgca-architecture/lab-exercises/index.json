@@ -1,0 +1,34 @@
+{
+  "title": "GaussDB 架构实验",
+  "description": "通过实际实验加深对 GaussDB 架构的理解",
+  "details": {
+    "steps": [
+      {
+        "title": "实验 1 - 基础架构探索",
+        "md_file": "lab1.md"
+      },
+      {
+        "title": "实验 2 - 存储引擎实践",
+        "md_file": "lab2.md"
+      },
+      {
+        "title": "实验 3 - 查询优化实践",
+        "md_file": "lab3.md"
+      },
+      {
+        "title": "实验 4 - WAL 机制实践",
+        "md_file": "lab4.md"
+      }
+    ],
+
+    "introduction": {
+      "md_file": "intro.md"
+    },
+    "finish": {
+      "md_file": "finish.md"
+    }
+  },
+  "backend": {
+    "image_id": "gaussdb-5.0.0"
+  }
+}

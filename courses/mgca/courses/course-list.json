@@ -2,8 +2,66 @@
   "courses": [
     {
       "id": "1",
-      "content_dir": ".",
-      "status": ["online", "test"]
+      "content_dir": "mgca-architecture",
+      "status": [
+        "online",
+        "test"
+      ],
+      "content_intro": "1-intro.md"
+    },
+    {
+      "id": "2",
+      "content_dir": "mgca-installation",
+      "status": [
+        "online",
+        "test"
+      ],
+      "content_intro": "2-intro.md"
+    },
+    {
+      "id": "3",
+      "content_dir": "mgca-sql-development",
+      "status": [
+        "online",
+        "test"
+      ],
+      "content_intro": "3-intro.md"
+    },
+    {
+      "id": "4",
+      "content_dir": "mgca-performance-tuning",
+      "status": [
+        "online",
+        "test"
+      ],
+      "content_intro": "4-intro.md"
+    },
+    {
+      "id": "5",
+      "content_dir": "mgca-backup-recovery",
+      "status": [
+        "online",
+        "test"
+      ],
+      "content_intro": "5-intro.md"
+    },
+    {
+      "id": "6",
+      "content_dir": "mgca-high-availability",
+      "status": [
+        "online",
+        "test"
+      ],
+      "content_intro": "6-intro.md"
+    },
+    {
+      "id": "7",
+      "content_dir": "mgca-security",
+      "status": [
+        "online",
+        "test"
+      ],
+      "content_intro": "7-intro.md"
     }
   ]
 }

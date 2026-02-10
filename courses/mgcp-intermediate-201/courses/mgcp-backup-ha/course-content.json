@@ -1,0 +1,16 @@
+{
+  "title": "备份恢复与高可用技术",
+  "description": "掌握备份策略和高可用架构，在模拟故障场景中实践。",
+  "logo": "../assets/logo.png",
+  "poster": "../assets/poster.png",
+  "cover": "../assets/cover.png",
+  "container_live_time": "180",
+  "chapters": [
+    {
+      "content_dir": "main-chapter",
+      "title": "备份恢复与高可用技术",
+      "description": "掌握备份策略和高可用架构，在模拟故障场景中实践。",
+      "estimated_time": "30 min"
+    }
+  ]
+}

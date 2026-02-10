@@ -1,0 +1,22 @@
+{
+  "title": "高可用",
+  "description": "掌握主备配置、故障切换、多节点集群和跨区域容灾方案",
+  "logo": "../assets/logo.png",
+  "poster": "../assets/poster.png",
+  "cover": "../assets/cover.png",
+  "container_live_time": "120",
+  "chapters": [
+    {
+      "content_dir": "theory-intro",
+      "title": "理论学习",
+      "description": "掌握主备配置、故障切换、多节点集群和跨区域容灾方案",
+      "estimated_time": "60 min"
+    },
+    {
+      "content_dir": "lab-exercises",
+      "title": "实验练习",
+      "description": "通过实际实验加深对高可用的理解",
+      "estimated_time": "60 min"
+    }
+  ]
+}

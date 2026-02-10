@@ -38,6 +38,18 @@ export class TauriCourseService implements ICourseService {
     }
   }
 
+  async getCourseIntroduction(courseId: string): Promise<StepContent> {
+    console.log("[TauriCourseService] Calling get_course_introduction for:", courseId);
+    try {
+      const result = await invoke<StepContent>("get_course_introduction", { courseId });
+      console.log("[TauriCourseService] get_course_introduction result:", result);
+      return result;
+    } catch (error) {
+      console.error("[TauriCourseService] get_course_introduction error:", error);
+      throw error;
+    }
+  }
+
   async getChapterDetail(
     courseId: string,
     chapterDir: string

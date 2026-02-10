@@ -1,0 +1,16 @@
+{
+  "title": "相关管理工具与生产案例剖析",
+  "description": "介绍工具链和真实企业案例，规范讲解与综合应用。",
+  "logo": "../assets/logo.png",
+  "poster": "../assets/poster.png",
+  "cover": "../assets/cover.png",
+  "container_live_time": "180",
+  "chapters": [
+    {
+      "content_dir": "main-chapter",
+      "title": "相关管理工具与生产案例剖析",
+      "description": "介绍工具链和真实企业案例，规范讲解与综合应用。",
+      "estimated_time": "30 min"
+    }
+  ]
+}

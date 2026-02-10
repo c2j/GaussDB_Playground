@@ -23,6 +23,19 @@ export function useCourseDetail(courseId: string) {
   });
 }
 
+// 获取课程介绍
+export function useCourseIntroduction(courseId: string) {
+  const result = useQuery({
+    queryKey: ["course-intro", courseId],
+    queryFn: () => courseService.getCourseIntroduction(courseId),
+    enabled: !!courseId && courseId !== "",
+    retry: 1,
+    retryDelay: 1000,
+  });
+
+  return result;
+}
+
 // 获取章节详情
 export function useChapterDetail(courseId: string, chapterDir: string) {
   return useQuery({

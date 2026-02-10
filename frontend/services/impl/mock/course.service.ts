@@ -25,6 +25,60 @@ export class MockCourseService implements ICourseService {
     },
   ];
 
+  private static mgcaMockCourses: CourseInfo[] = [
+    {
+      id: "1",
+      contentDir: "mgca-architecture",
+      title: "GaussDB 架构与原理",
+      description: "学习 GaussDB 核心架构、存储引擎、WAL 机制、查询处理和优化原理",
+      status: ["online", "test"],
+    },
+    {
+      id: "2",
+      contentDir: "mgca-installation",
+      title: "安装与配置",
+      description: "掌握 GaussDB 安装部署、参数配置和性能调优方法",
+      status: ["online", "test"],
+    },
+    {
+      id: "3",
+      contentDir: "mgca-sql-development",
+      title: "SQL 开发基础",
+      description: "学习 SQL 基础语法、DDL/DML 操作、查询优化和高级 SQL 特性",
+      status: ["online", "test"],
+    },
+    {
+      id: "4",
+      contentDir: "mgca-performance-tuning",
+      title: "性能调优",
+      description: "掌握 GaussDB 性能监控、SQL 优化和参数调整方法",
+      status: ["online", "test"],
+    },
+    {
+      id: "5",
+      contentDir: "mgca-backup-recovery",
+      title: "备份与恢复",
+      description: "学习 GaussDB 备份恢复策略、灾难恢复和数据迁移方法",
+      status: ["online", "test"],
+    },
+    {
+      id: "6",
+      contentDir: "mgca-high-availability",
+      title: "高可用架构",
+      description: "掌握 GaussDB 主备切换、负载均衡和故障处理机制",
+      status: ["online", "test"],
+    },
+    {
+      id: "7",
+      contentDir: "mgca-security",
+      title: "安全管理",
+      description: "学习 GaussDB 权限控制、审计日志和数据安全最佳实践",
+      status: ["online", "test"],
+    },
+  ];
+
+  private static currentMajorId: string = "opengauss";
+
   private static mockCourseDetails: Record<string, CourseDetail> = {
     "1": {
       title: "1小时快速入门openGauss数据库",
@@ -51,6 +105,170 @@ export class MockCourseService implements ICourseService {
           title: "视图与索引",
           description: "学习有关数据库视图和索引的相关知识",
           estimated_time: "20 min",
+        },
+      ],
+    },
+  };
+
+  private static mgcaMockCourseDetails: Record<string, CourseDetail> = {
+    "1": {
+      title: "GaussDB 架构与原理",
+      description: "学习 GaussDB 核心架构、存储引擎、WAL 机制、查询处理和优化原理",
+      logo: "./assets/logo.png",
+      poster: "./assets/poster.png",
+      cover: "./assets/cover.png",
+      containerLiveTime: "120",
+      introduction: "1-intro",
+      chapters: [
+        {
+          content_dir: "theory-intro",
+          title: "架构原理学习",
+          description: "学习 GaussDB 核心架构、存储引擎、WAL 机制、查询处理和优化原理",
+          estimated_time: "60 min",
+        },
+        {
+          content_dir: "lab-exercises",
+          title: "实验练习",
+          description: "通过实际实验加深对 GaussDB 架构的理解，包括进程监控、内存配置、查询优化等实践",
+          estimated_time: "60 min",
+        },
+      ],
+    },
+    "2": {
+      title: "安装与配置",
+      description: "掌握 GaussDB 安装部署、参数配置和性能调优方法",
+      logo: "./assets/logo.png",
+      poster: "./assets/poster.png",
+      cover: "./assets/cover.png",
+      containerLiveTime: "120",
+      introduction: "2-intro",
+      chapters: [
+        {
+          content_dir: "theory-intro",
+          title: "理论学习",
+          description: "掌握 GaussDB 安装部署、参数配置和性能调优方法",
+          estimated_time: "60 min",
+        },
+        {
+          content_dir: "lab-exercises",
+          title: "实验练习",
+          description: "通过实际实验掌握 GaussDB 安装与配置方法",
+          estimated_time: "60 min",
+        },
+      ],
+    },
+    "3": {
+      title: "SQL 开发基础",
+      description: "学习 SQL 基础语法、DDL/DML 操作、查询优化和高级 SQL 特性",
+      logo: "./assets/logo.png",
+      poster: "./assets/poster.png",
+      cover: "./assets/cover.png",
+      containerLiveTime: "120",
+      introduction: "3-intro",
+      chapters: [
+        {
+          content_dir: "theory-intro",
+          title: "理论学习",
+          description: "学习 SQL 基础语法、DDL/DML 操作、查询优化和高级 SQL 特性",
+          estimated_time: "60 min",
+        },
+        {
+          content_dir: "lab-exercises",
+          title: "实验练习",
+          description: "通过实际实验加深对SQL的理解",
+          estimated_time: "60 min",
+        },
+      ],
+    },
+    "4": {
+      title: "性能调优",
+      description: "掌握 GaussDB 性能监控、SQL 优化和参数调整方法",
+      logo: "./assets/logo.png",
+      poster: "./assets/poster.png",
+      cover: "./assets/cover.png",
+      containerLiveTime: "120",
+      introduction: "4-intro",
+      chapters: [
+        {
+          content_dir: "theory-intro",
+          title: "理论学习",
+          description: "掌握 GaussDB 性能监控、SQL 优化和参数调整方法",
+          estimated_time: "60 min",
+        },
+        {
+          content_dir: "lab-exercises",
+          title: "实验练习",
+          description: "通过实际实验加深对性能调优的理解",
+          estimated_time: "60 min",
+        },
+      ],
+    },
+    "5": {
+      title: "备份与恢复",
+      description: "学习 GaussDB 备份恢复策略、灾难恢复和数据迁移方法",
+      logo: "./assets/logo.png",
+      poster: "./assets/poster.png",
+      cover: "./assets/cover.png",
+      containerLiveTime: "120",
+      introduction: "5-intro",
+      chapters: [
+        {
+          content_dir: "theory-intro",
+          title: "理论学习",
+          description: "学习 GaussDB 备份恢复策略、灾难恢复和数据迁移方法",
+          estimated_time: "60 min",
+        },
+        {
+          content_dir: "lab-exercises",
+          title: "实验练习",
+          description: "通过实际实验加深对备份与恢复的理解",
+          estimated_time: "60 min",
+        },
+      ],
+    },
+    "6": {
+      title: "高可用架构",
+      description: "掌握 GaussDB 主备切换、负载均衡和故障处理机制",
+      logo: "./assets/logo.png",
+      poster: "./assets/poster.png",
+      cover: "./assets/cover.png",
+      containerLiveTime: "120",
+      introduction: "6-intro",
+      chapters: [
+        {
+          content_dir: "theory-intro",
+          title: "理论学习",
+          description: "掌握 GaussDB 主备切换、负载均衡和故障处理机制",
+          estimated_time: "60 min",
+        },
+        {
+          content_dir: "lab-exercises",
+          title: "实验练习",
+          description: "通过实际实验加深对高可用架构的理解",
+          estimated_time: "60 min",
+        },
+      ],
+    },
+    "7": {
+      title: "安全管理",
+      description: "学习 GaussDB 权限控制、审计日志和数据安全最佳实践",
+      logo: "./assets/logo.png",
+      poster: "./assets/poster.png",
+      cover: "./assets/cover.png",
+      containerLiveTime: "120",
+      introduction: "7-intro",
+      chapters: [
+        {
+          content_dir: "theory-intro",
+          title: "理论学习",
+          description: "学习 GaussDB 权限控制、审计日志和数据安全最佳实践",
+          estimated_time: "60 min",
+        },
+        {
+          content_dir: "lab-exercises",
+          title: "实验练习",
+          description: "通过实际实验加深对安全管理的理解",
+          estimated_time: "60 min",
         },
       ],
     },
@@ -83,7 +301,223 @@ export class MockCourseService implements ICourseService {
       finish: "finish.md",
       backend: { imageId: "opengauss-3.0.0" },
     },
+    "1-view-and-index": {
+      title: "视图与索引",
+      description: "学习有关数据库视图和索引的相关知识",
+      steps: [
+        { title: "Step 1 - 创建视图", md_file: "step1.md" },
+        { title: "Step 2 - 创建索引", md_file: "step2.md" },
+        { title: "Step 3 - 使用视图和索引", md_file: "step3.md" },
+      ],
+      estimatedTime: "20 min",
+      introduction: "intro.md",
+      finish: "finish.md",
+      backend: { imageId: "opengauss-3.0.0" },
+    },
   };
+
+  private static mgcaMockChapterDetails: Record<string, ChapterDetail> = {
+    "1-theory-intro": {
+      title: "架构原理学习",
+      description: "学习 GaussDB 核心架构、存储引擎、WAL 机制、查询处理和优化原理",
+      steps: [
+        { title: "Step 1 - GaussDB 核心架构", md_file: "step1.md" },
+        { title: "Step 2 - 存储引擎与 WAL 机制", md_file: "step2.md" },
+        { title: "Step 3 - 查询处理与优化", md_file: "step3.md" },
+      ],
+      estimatedTime: "60 min",
+      introduction: "intro.md",
+      finish: "finish.md",
+      backend: { imageId: "gaussdb-5.0.0" },
+    },
+    "1-lab-exercises": {
+      title: "实验练习",
+      description: "通过实际实验加深对 GaussDB 架构的理解",
+      steps: [
+        { title: "实验 1 - 基础架构探索", md_file: "lab1.md" },
+        { title: "实验 2 - 存储引擎实践", md_file: "lab2.md" },
+        { title: "实验 3 - 查询优化实践", md_file: "lab3.md" },
+        { title: "实验 4 - WAL 机制实践", md_file: "lab4.md" },
+      ],
+      estimatedTime: "60 min",
+      introduction: "intro.md",
+      finish: "finish.md",
+      backend: { imageId: "gaussdb-5.0.0" },
+    },
+    "2-theory-intro": {
+      title: "理论学习",
+      description: "掌握 GaussDB 安装部署、参数配置和性能调优方法",
+      steps: [
+        { title: "Step 1", md_file: "step1.md" },
+        { title: "Step 2", md_file: "step2.md" },
+        { title: "Step 3", md_file: "step3.md" },
+        { title: "Step 4", md_file: "step4.md" },
+      ],
+      estimatedTime: "60 min",
+      introduction: "intro.md",
+      finish: "finish.md",
+      backend: { imageId: "gaussdb-5.0.0" },
+    },
+    "2-lab-exercises": {
+      title: "实验练习",
+      description: "通过实际实验掌握 GaussDB 安装与配置方法",
+      steps: [
+        { title: "实验 1", md_file: "lab1.md" },
+        { title: "实验 2", md_file: "lab2.md" },
+        { title: "实验 3", md_file: "lab3.md" },
+        { title: "实验 4", md_file: "lab4.md" },
+      ],
+      estimatedTime: "60 min",
+      introduction: "intro.md",
+      finish: "finish.md",
+      backend: { imageId: "gaussdb-5.0.0" },
+    },
+    "3-theory-intro": {
+      title: "理论学习",
+      description: "学习 SQL 基础语法、DDL/DML 操作、查询优化和高级 SQL 特性",
+      steps: [
+        { title: "Step 1", md_file: "step1.md" },
+        { title: "Step 2", md_file: "step2.md" },
+        { title: "Step 3", md_file: "step3.md" },
+        { title: "Step 4", md_file: "step4.md" },
+        { title: "Step 5", md_file: "step5.md" },
+      ],
+      estimatedTime: "60 min",
+      introduction: "intro.md",
+      finish: "finish.md",
+      backend: { imageId: "gaussdb-5.0.0" },
+    },
+    "3-lab-exercises": {
+      title: "实验练习",
+      description: "通过实际实验加深对SQL的理解",
+      steps: [
+        { title: "实验 1", md_file: "lab1.md" },
+        { title: "实验 2", md_file: "lab2.md" },
+        { title: "实验 3", md_file: "lab3.md" },
+        { title: "实验 4", md_file: "lab4.md" },
+      ],
+      estimatedTime: "60 min",
+      introduction: "intro.md",
+      finish: "finish.md",
+      backend: { imageId: "gaussdb-5.0.0" },
+    },
+    "4-theory-intro": {
+      title: "理论学习",
+      description: "掌握 GaussDB 性能监控、SQL 优化和参数调整方法",
+      steps: [
+        { title: "Step 1", md_file: "step1.md" },
+        { title: "Step 2", md_file: "step2.md" },
+        { title: "Step 3", md_file: "step3.md" },
+        { title: "Step 4", md_file: "step4.md" },
+      ],
+      estimatedTime: "60 min",
+      introduction: "intro.md",
+      finish: "finish.md",
+      backend: { imageId: "gaussdb-5.0.0" },
+    },
+    "4-lab-exercises": {
+      title: "实验练习",
+      description: "通过实际实验加深对性能调优的理解",
+      steps: [
+        { title: "实验 1", md_file: "lab1.md" },
+        { title: "实验 2", md_file: "lab2.md" },
+        { title: "实验 3", md_file: "lab3.md" },
+        { title: "实验 4", md_file: "lab4.md" },
+      ],
+      estimatedTime: "60 min",
+      introduction: "intro.md",
+      finish: "finish.md",
+      backend: { imageId: "gaussdb-5.0.0" },
+    },
+    "5-theory-intro": {
+      title: "理论学习",
+      description: "学习 GaussDB 备份恢复策略、灾难恢复和数据迁移方法",
+      steps: [
+        { title: "Step 1", md_file: "step1.md" },
+        { title: "Step 2", md_file: "step2.md" },
+        { title: "Step 3", md_file: "step3.md" },
+        { title: "Step 4", md_file: "step4.md" },
+        { title: "Step 5", md_file: "step5.md" },
+      ],
+      estimatedTime: "60 min",
+      introduction: "intro.md",
+      finish: "finish.md",
+      backend: { imageId: "gaussdb-5.0.0" },
+    },
+    "5-lab-exercises": {
+      title: "实验练习",
+      description: "通过实际实验加深对备份与恢复的理解",
+      steps: [
+        { title: "实验 1", md_file: "lab1.md" },
+        { title: "实验 2", md_file: "lab2.md" },
+        { title: "实验 3", md_file: "lab3.md" },
+        { title: "实验 4", md_file: "lab4.md" },
+      ],
+      estimatedTime: "60 min",
+      introduction: "intro.md",
+      finish: "finish.md",
+      backend: { imageId: "gaussdb-5.0.0" },
+    },
+    "6-theory-intro": {
+      title: "理论学习",
+      description: "掌握 GaussDB 主备切换、负载均衡和故障处理机制",
+      steps: [
+        { title: "Step 1", md_file: "step1.md" },
+        { title: "Step 2", md_file: "step2.md" },
+        { title: "Step 3", md_file: "step3.md" },
+        { title: "Step 4", md_file: "step4.md" },
+        { title: "Step 5", md_file: "step5.md" },
+      ],
+      estimatedTime: "60 min",
+      introduction: "intro.md",
+      finish: "finish.md",
+      backend: { imageId: "gaussdb-5.0.0" },
+    },
+    "6-lab-exercises": {
+      title: "实验练习",
+      description: "通过实际实验加深对高可用架构的理解",
+      steps: [
+        { title: "实验 1", md_file: "lab1.md" },
+        { title: "实验 2", md_file: "lab2.md" },
+        { title: "实验 3", md_file: "lab3.md" },
+        { title: "实验 4", md_file: "lab4.md" },
+      ],
+      estimatedTime: "60 min",
+      introduction: "intro.md",
+      finish: "finish.md",
+      backend: { imageId: "gaussdb-5.0.0" },
+    },
+    "7-theory-intro": {
+      title: "理论学习",
+      description: "学习 GaussDB 权限控制、审计日志和数据安全最佳实践",
+      steps: [
+        { title: "Step 1", md_file: "step1.md" },
+        { title: "Step 2", md_file: "step2.md" },
+        { title: "Step 3", md_file: "step3.md" },
+        { title: "Step 4", md_file: "step4.md" },
+        { title: "Step 5", md_file: "step5.md" },
+        { title: "Step 6", md_file: "step6.md" },
+      ],
+      estimatedTime: "60 min",
+      introduction: "intro.md",
+      finish: "finish.md",
+      backend: { imageId: "gaussdb-5.0.0" },
+    },
+    "7-lab-exercises": {
+      title: "实验练习",
+      description: "通过实际实验加深对安全管理的理解",
+      steps: [
+        { title: "实验 1", md_file: "lab1.md" },
+        { title: "实验 2", md_file: "lab2.md" },
+        { title: "实验 3", md_file: "lab3.md" },
+        { title: "实验 4", md_file: "lab4.md" },
+      ],
+      estimatedTime: "60 min",
+      introduction: "intro.md",
+      finish: "finish.md",
+      backend: { imageId: "gaussdb-5.0.0" },
+     },
+   };
 
   private static mockStepContents: Record<string, StepContent> = {
     "1-create-schema-step1": {
@@ -308,16 +742,34 @@ SELECT * FROM clients WHERE name = '张三';
 
   async getCourses(): Promise<CourseInfo[]> {
     console.log("[Mock] Getting courses list");
+    if (MockCourseService.currentMajorId === "mgca") {
+      return MockCourseService.mgcaMockCourses;
+    }
     return MockCourseService.mockCourses;
   }
 
   async getCourseDetail(courseId: string): Promise<CourseDetail> {
     console.log(`[Mock] Getting course detail: ${courseId}`);
-    const detail = MockCourseService.mockCourseDetails[courseId];
+    let detail: CourseDetail | undefined;
+    if (MockCourseService.currentMajorId === "mgca") {
+      detail = MockCourseService.mgcaMockCourseDetails[courseId];
+    }
+    if (!detail) {
+      detail = MockCourseService.mockCourseDetails[courseId];
+    }
     if (!detail) {
       throw new Error(`Course not found: ${courseId}`);
     }
     return detail;
+  }
+
+  async getCourseIntroduction(courseId: string): Promise<StepContent> {
+    // 返回默认的介绍内容（实际文件在文件系统中）
+    return {
+      title: `课程介绍 - ${courseId}`,
+      content: "此课程的介绍内容正在开发中...（注：在实际 Tauri 环境中，介绍将从文件中读取）",
+      sqlCommands: [],
+    };
   }
 
   async getChapterDetail(
@@ -326,7 +778,13 @@ SELECT * FROM clients WHERE name = '张三';
   ): Promise<ChapterDetail> {
     console.log(`[Mock] Getting chapter detail: ${courseId}/${chapterDir}`);
     const key = `${courseId}-${chapterDir}`;
-    const detail = MockCourseService.mockChapterDetails[key];
+    let detail: ChapterDetail | undefined;
+    if (MockCourseService.currentMajorId === "mgca") {
+      detail = MockCourseService.mgcaMockChapterDetails[key];
+    }
+    if (!detail) {
+      detail = MockCourseService.mockChapterDetails[key];
+    }
     if (!detail) {
       throw new Error(`Chapter not found: ${key}`);
     }
@@ -370,5 +828,6 @@ SELECT * FROM clients WHERE name = '张三';
 
   async setCurrentMajor(majorId: string): Promise<void> {
     console.log(`[Mock] Setting current major to: ${majorId}`);
+    MockCourseService.currentMajorId = majorId;
   }
 }

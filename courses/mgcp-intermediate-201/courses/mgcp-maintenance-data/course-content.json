@@ -1,0 +1,16 @@
+{
+  "title": "深入维护与数据管理",
+  "description": "讲解运维工具和数据操作最佳实践，包括企业级数据导入导出。",
+  "logo": "../assets/logo.png",
+  "poster": "../assets/poster.png",
+  "cover": "../assets/cover.png",
+  "container_live_time": "180",
+  "chapters": [
+    {
+      "content_dir": "main-chapter",
+      "title": "深入维护与数据管理",
+      "description": "讲解运维工具和数据操作最佳实践，包括企业级数据导入导出。",
+      "estimated_time": "30 min"
+    }
+  ]
+}

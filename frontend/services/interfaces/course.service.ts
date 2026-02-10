@@ -32,6 +32,7 @@ export interface CourseDetail {
   poster: string;
   cover: string;
   containerLiveTime: string;
+  introduction?: string;
   chapters: ChapterInfo[];
 }
 
@@ -78,6 +79,11 @@ export interface ICourseService {
    * 获取课程详细信息
    */
   getCourseDetail(courseId: string): Promise<CourseDetail>;
+
+  /**
+   * 获取课程介绍内容
+   */
+  getCourseIntroduction(courseId: string): Promise<StepContent>;
 
   /**
    * 获取章节详情

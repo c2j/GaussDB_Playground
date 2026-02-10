@@ -1,0 +1,16 @@
+{
+  "title": "性能优化与高级SQL",
+  "description": "深入性能诊断和高级SQL编写，结合慢查询案例剖析。",
+  "logo": "../assets/logo.png",
+  "poster": "../assets/poster.png",
+  "cover": "../assets/cover.png",
+  "container_live_time": "180",
+  "chapters": [
+    {
+      "content_dir": "main-chapter",
+      "title": "性能优化与高级SQL",
+      "description": "深入性能诊断和高级SQL编写，结合慢查询案例剖析。",
+      "estimated_time": "30 min"
+    }
+  ]
+}

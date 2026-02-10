@@ -62,17 +62,15 @@ export function Sidebar() {
       setSelectedStep(null);
     } else {
       setSelectedCourse(courseId);
+      setSelectedChapter(null);
+      setSelectedStep(null);
     }
   };
 
   const handleChapterClick = (_courseId: string, chapterDir: string) => {
-    if (selectedChapterId === chapterDir) {
-      setSelectedChapter(null);
-      setSelectedStep(null);
-    } else {
-      setSelectedChapter(chapterDir);
-      setSelectedStep("step1.md");
-    }
+    // 重复点击同一章节时不再清空选择，避免章节信息加载失败
+    setSelectedChapter(chapterDir);
+    setSelectedStep("step1.md");
   };
 
   const handleMajorChange = async (majorId: string) => {

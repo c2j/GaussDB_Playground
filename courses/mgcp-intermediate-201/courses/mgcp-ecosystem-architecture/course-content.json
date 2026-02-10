@@ -1,0 +1,16 @@
+{
+  "title": "MogDB生态发展与架构深入分析",
+  "description": "介绍MogDB生态和openGauss架构细节，在金融场景中分析设计决策。",
+  "logo": "../assets/logo.png",
+  "poster": "../assets/poster.png",
+  "cover": "../assets/cover.png",
+  "container_live_time": "180",
+  "chapters": [
+    {
+      "content_dir": "main-chapter",
+      "title": "MogDB生态发展与架构深入分析",
+      "description": "介绍MogDB生态和openGauss架构细节，在金融场景中分析设计决策。",
+      "estimated_time": "25 min"
+    }
+  ]
+}

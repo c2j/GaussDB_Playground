@@ -1,0 +1,22 @@
+{
+  "title": "性能调优",
+  "description": "掌握索引设计、查询优化、参数调优和性能分析方法",
+  "logo": "../assets/logo.png",
+  "poster": "../assets/poster.png",
+  "cover": "../assets/cover.png",
+  "container_live_time": "120",
+  "chapters": [
+    {
+      "content_dir": "theory-intro",
+      "title": "理论学习",
+      "description": "掌握索引设计、查询优化、参数调优和性能分析方法",
+      "estimated_time": "60 min"
+    },
+    {
+      "content_dir": "lab-exercises",
+      "title": "实验练习",
+      "description": "通过实际实验加深对性能调优的理解",
+      "estimated_time": "60 min"
+    }
+  ]
+}

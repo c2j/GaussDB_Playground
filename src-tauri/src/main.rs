@@ -118,6 +118,21 @@ async fn get_chapter_detail(
 }
 
 #[tauri::command]
+async fn get_course_introduction(
+    state: tauri::State<'_, AppState>,
+    course_id: String
+) -> Result<StepContent, String> {
+    eprintln!("[Tauri Command] get_course_introduction called with courseId: {}", course_id);
+    let manager = state.course_manager.lock().await;
+
+    let result = manager.get_course_introduction(&course_id).await
+        .map_err(|e| format!("Failed to get course introduction: {}", e))?;
+
+    eprintln!("[Tauri Command] get_course_introduction returning content with title: {}", result.title);
+    Ok(result)
+}
+
+#[tauri::command]
 async fn get_step_content(
     state: tauri::State<'_, AppState>,
     course_id: String,
@@ -182,6 +197,7 @@ fn main() {
             // Course commands
             get_courses,
             get_course_detail,
+            get_course_introduction,
             get_chapter_detail,
             get_step_content,
             get_majors,
