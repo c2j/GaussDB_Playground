@@ -6,14 +6,15 @@
   },
   "tauri": {
     "bundle": {
+      "icon": ["icons/256x256.png", "icons/128x128.png", "icons/32x32.png"],
       "active": true,
       "targets": "all",
-      "identifier": "com.example.tauri-react-app",
+      "identifier": "com.sdchat.db-playground",
       "publisher": "CHen Jianjun",
       "copyright": "Copyright © 2025 C2J. All rights reserved.",
       "category": "DeveloperTool",
       "shortDescription": "Database Playground Desktop application",
-      "longDescription": "This is a starter template for building Tauri applications with React and TypeScript."
+      "longDescription": "This is a Database Playground Desktop application building by Tauri with React and TypeScript."
     },
     "allowlist": {
       "all": false,
